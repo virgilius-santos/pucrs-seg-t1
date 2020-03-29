@@ -10,15 +10,21 @@ class StringExt: XCTestCase {
     }
     
     func test_substring() {
+        XCTAssertEqual("123412341234".substring(), "123412341234")
+        XCTAssertEqual("123412341234".substring(step: 2), "131313")
+        XCTAssertEqual("123412341234".substring(step: 3), "1432")
+    }
+    
+    func test_substrings() {
+        XCTAssertEqual("1212".substrings(step: 2)[0], "11")
+        XCTAssertEqual("1212".substrings(step: 2)[1], "22")
+        XCTAssertEqual("12121".substrings(step: 2)[0], "111")
         
-        let word: String = "123412341234"
-        XCTAssertEqual(word.substring(), word)
-        XCTAssertEqual(word.substring(step: 2), "131313")
-        XCTAssertEqual(word.substring(step: 3), "1432")
-        
-        let substrings = "1212".substrings(step: 2)
-        XCTAssertEqual(substrings[0], "11")
-        XCTAssertEqual(substrings[1], "22")
+        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[0], "tece")
+        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[1], "hnec")
+        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[2], "itir")
+        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[3], "sese")
+        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[4], "snst")
     }
     
     func test_frequency() {
@@ -52,8 +58,8 @@ class StringExt: XCTestCase {
         XCTAssertEqual(text1.indexOfCoincidence(step: 6), 0.0435, accuracy: 0.0001)
     }
     
-    func test_findIndexOfCoincidence() {
-        XCTAssertEqual(self.text1.findIndexOfCoincidence(), 0.0664, accuracy: 0.0001)
+    func test_findStepOfIndexOfCoincidence() {
+        XCTAssertEqual(self.text1.findStepOfIndexOfCoincidence(), 5)
     }
     
     func test_indexOfCosincidence_fromSplittedWord() {
