@@ -26,7 +26,7 @@ extension String {
     
     func frequencies() -> [String: Int] {
         reduce(into: [String: Int]()) { (dict, value) in
-            let str = "\(value)"
+            let str = String(value)
             dict[str] = (dict[str] ?? 0) + 1
         }
     }
@@ -48,10 +48,13 @@ extension String {
         let sum: Int = values.reduce(0, { $0 + ($1 * ($1 - 1)) })
         return Double(sum) / Double(const)
     }
-}
-
-extension Double {
-    func map<T>(_ closure: (Double) -> T) -> T {
-        return closure(self)
+    
+    func findIndexOfCoincidence() -> Double {
+        return generateIndexOfCoincidence(qtd: 10).max() ?? 0
+    }
+    
+    func generateIndexOfCoincidence(qtd: Int) -> [Double] {
+        stride(from: 1, to: qtd + 1, by: 1)
+            .map { indexOfCoincidence(step: $0) }
     }
 }

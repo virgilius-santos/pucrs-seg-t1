@@ -32,21 +32,40 @@ class StringExt: XCTestCase {
         XCTAssertEqual(frequency.total, word.count)
     }
     
-    func test_indexOfCoincidence() {
+    func test_indexOfCoincidence_fromWord() {
         XCTAssertEqual("".indexOfCoincidence(), 0)
         XCTAssertEqual("4444".indexOfCoincidence(), 1)
-        XCTAssertEqual("45454545".indexOfCoincidence(step: 2), 1)
         
         let text: String = self.text.lowercased().alphanumeric
         XCTAssertEqual(text.indexOfCoincidence(), 0.071728, accuracy: 0.00001)
-        
-        let text1: String = self.text1
+                
         XCTAssertEqual(text1.indexOfCoincidence(), 0.04470, accuracy: 0.0001)
+    }
+    
+    func test_indexOfCoincidence_fromSplittedWord() {
+        XCTAssertEqual("45454545".indexOfCoincidence(step: 2), 1)
+        
         XCTAssertEqual(text1.indexOfCoincidence(step: 2), 0.0430, accuracy: 0.0001)
         XCTAssertEqual(text1.indexOfCoincidence(step: 3), 0.0463, accuracy: 0.0001)
         XCTAssertEqual(text1.indexOfCoincidence(step: 4), 0.0413, accuracy: 0.0001)
         XCTAssertEqual(text1.indexOfCoincidence(step: 5), 0.0664, accuracy: 0.0001)
         XCTAssertEqual(text1.indexOfCoincidence(step: 6), 0.0435, accuracy: 0.0001)
+    }
+    
+    func test_findIndexOfCoincidence() {
+        XCTAssertEqual(self.text1.findIndexOfCoincidence(), 0.0664, accuracy: 0.0001)
+    }
+    
+    func test_indexOfCosincidence_fromSplittedWord() {
+        let ics: [Double] = text1.generateIndexOfCoincidence(qtd: 6)
+        
+        XCTAssertEqual(ics.count, 6)
+        XCTAssertEqual(ics[0], 0.0447, accuracy: 0.0001)
+        XCTAssertEqual(ics[1], 0.0430, accuracy: 0.0001)
+        XCTAssertEqual(ics[2], 0.0463, accuracy: 0.0001)
+        XCTAssertEqual(ics[3], 0.0413, accuracy: 0.0001)
+        XCTAssertEqual(ics[4], 0.0664, accuracy: 0.0001)
+        XCTAssertEqual(ics[5], 0.0435, accuracy: 0.0001)
     }
     
     let text: String = "InBrazilalotofpeopletrytosavetimeInmostfamiliesboththehusbandandthewifeworkfulltimesotheirfreetimeisveryshortandveryimportanttothemTheylookforquickandconvenientwaystodotheirshoppingandotherthingssotheycanhavefreetimetoenjoythemselvesanddothethingstheyreallyliketodoBackinthedaypeopleusedtogotomanydifferentplacestobuythethingstheyneededathomeTheyusedtogotothebutcherformeatandchickentothefruitmarketforfreshfruitandtothebakeryforbreadNowadaysmostpeoplejustgotooneplacetogeteverythingtheyneedTheycanbuyfruitvegetablesbreadmeatmilkandfrozenfoodsattheirlocalsupermarketWhenpeopleeatouttheyoftengotofastfoodrestaurantsTherepeopleordertheirfoodatthecounterandhavetowaitonlyafewsecondsorminutesThentheycarrytheirfoodtoatablesitdowneatitandthrowtheirtrashawaySometimespeopleleavetheirtrashonthetablefortheemployeestocleanupItdoesnttaketoolongtoeatamealatafastfoodrestaurantbutitsnotalwaysahealthychoice"
