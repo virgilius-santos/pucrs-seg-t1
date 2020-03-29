@@ -4,7 +4,7 @@ import XCTest
 
 class SecurityDecryptTests: XCTestCase {
 
-    var sut: Decrypt!
+    var sut: Crypt!
     
     override func setUpWithError() throws {
         sut = .init()
@@ -14,7 +14,16 @@ class SecurityDecryptTests: XCTestCase {
         sut = nil
     }
 
-    func test_() throws {
-
+    func test_alphabet() throws {
+        XCTAssertEqual(Crypt.alphabet.count, 26)
+    }
+    
+    func test_vigenere() {
+        let matriz: [Character: [Character]] = Crypt.matrizVigenere
+        XCTAssertEqual(matriz.count, 26)
+        for (i, array) in matriz.sorted(by: { $0.key < $1.key}) {
+            XCTAssertEqual(array.count, 26)
+            XCTAssertEqual(array[0], i)
+        }
     }
 }

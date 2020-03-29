@@ -1,12 +1,61 @@
 
 import Foundation
 
-// MARK: Index of coincidence
+// MARK: Decrypt
 
 extension String {
     
-    func decrypt() {
+    func decrypt() -> String {
+        let step: Int
+        let substrings: [String]
+        let frequencies: [(word: String, freq: [String: Int])]
+        let mostFreq: [(word: String, freq: [(letter: String, qtd: Int)])]
         
+        step = findStepOfIndexOfCoincidence()
+        substrings = self.substrings(step: step)
+        frequencies = substrings.map { ($0, $0.frequencies() )}
+        mostFreq = frequencies.map { ($0.word, $0.freq.letterMostFreq(qtd: 4) )}
+        return mostFreq[0].word
+    }
+}
+
+// MARK: Vigenere Encrypt
+
+extension String {
+    
+    func encrypt(key: String) -> String {
+        guard !key.isEmpty, !self.isEmpty else { return self }
+        return stride(from: 0, to: count, by: key.count)
+            .map({ i -> String in encrypt(i: i, key: key) })
+            .reduce("", { (old: String, new: String) -> String in old + new })
+    }
+    
+    func encrypt(i: Int, key: String) -> String {
+        stride(from: 0, to: key.count, by: 1)
+            .map { j -> Character in Crypt.char(key: Array(key.lowercased())[j],
+                                                fromValue: Array(self)[i + j]) }
+            .map { c -> String in String(c) }
+            .reduce("", +)
+    }
+}
+
+// MARK: Vigenere Decrypt
+
+extension String {
+    
+    func decrypt(key: String) -> String {
+        guard !key.isEmpty, !self.isEmpty else { return self }
+        return stride(from: 0, to: count, by: key.count)
+            .map { i -> String in decrypt(i: i, key: key) }
+            .reduce("", { (old: String, new: String) -> String in old + new })
+    }
+    
+    func decrypt(i: Int, key: String) -> String {
+        stride(from: 0, to: key.count, by: 1)
+            .map { j -> Character in Crypt.char(key: Array(key.lowercased())[j],
+                                                fromAlphabet: Array(self)[i + j]) }
+            .map { c -> String in String(c) }
+            .reduce("", +)
     }
 }
 
@@ -25,7 +74,7 @@ extension String {
         let total: Int = frequencies.total
         let const: Int = total * (total - 1)
         let values: [Int] = frequencies.values.map { $0 }
-                
+        
         guard const > .zero else { return .zero }
         
         let sum: Int = values.reduce(0, { $0 + ($1 * ($1 - 1)) })
