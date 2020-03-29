@@ -20,6 +20,8 @@
 		18316F02243063F8000AF586 /* DictionaryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F01243063F8000AF586 /* DictionaryExt.swift */; };
 		18316F062430EDA0000AF586 /* DoubleExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F052430EDA0000AF586 /* DoubleExt.swift */; };
 		18316F0824310E6D000AF586 /* DictionaryExtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F0724310E6D000AF586 /* DictionaryExtTests.swift */; };
+		18316F0A24315118000AF586 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F0924315118000AF586 /* ArrayExt.swift */; };
+		18316F0C24315CA3000AF586 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F0B24315CA3000AF586 /* Main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		18316F01243063F8000AF586 /* DictionaryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExt.swift; sourceTree = "<group>"; };
 		18316F052430EDA0000AF586 /* DoubleExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExt.swift; sourceTree = "<group>"; };
 		18316F0724310E6D000AF586 /* DictionaryExtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtTests.swift; sourceTree = "<group>"; };
+		18316F0924315118000AF586 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
+		18316F0B24315CA3000AF586 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 				18316EF724305C60000AF586 /* Resources */,
 				18316EEF24305B13000AF586 /* Crypt.swift */,
 				18316EF824305CA4000AF586 /* Read.swift */,
+				18316F0B24315CA3000AF586 /* Main.swift */,
 			);
 			path = SecurityDecrypt;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 		18316F0024306315000AF586 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				18316F0924315118000AF586 /* ArrayExt.swift */,
 				18316F01243063F8000AF586 /* DictionaryExt.swift */,
 				18316EFC24305EFF000AF586 /* StringExt.swift */,
 				18316F052430EDA0000AF586 /* DoubleExt.swift */,
@@ -253,9 +259,11 @@
 			files = (
 				18316F02243063F8000AF586 /* DictionaryExt.swift in Sources */,
 				18316EF024305B13000AF586 /* Crypt.swift in Sources */,
+				18316F0C24315CA3000AF586 /* Main.swift in Sources */,
 				18316EF924305CA4000AF586 /* Read.swift in Sources */,
 				18316EFD24305EFF000AF586 /* StringExt.swift in Sources */,
 				18316F062430EDA0000AF586 /* DoubleExt.swift in Sources */,
+				18316F0A24315118000AF586 /* ArrayExt.swift in Sources */,
 				18316EF424305C09000AF586 /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
