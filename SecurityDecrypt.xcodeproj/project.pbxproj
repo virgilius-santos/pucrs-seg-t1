@@ -10,6 +10,14 @@
 		18316EDF24305B06000AF586 /* SecurityDecrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18316ED524305B06000AF586 /* SecurityDecrypt.framework */; };
 		18316EE424305B06000AF586 /* SecurityDecryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EE324305B06000AF586 /* SecurityDecryptTests.swift */; };
 		18316EE624305B06000AF586 /* SecurityDecrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 18316ED824305B06000AF586 /* SecurityDecrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		18316EF024305B13000AF586 /* Decrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EEF24305B13000AF586 /* Decrypt.swift */; };
+		18316EF224305B94000AF586 /* String.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18316EF124305B94000AF586 /* String.txt */; };
+		18316EF424305C09000AF586 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EF324305C09000AF586 /* Util.swift */; };
+		18316EF924305CA4000AF586 /* Read.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EF824305CA4000AF586 /* Read.swift */; };
+		18316EFB24305CCC000AF586 /* ReadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EFA24305CCC000AF586 /* ReadTests.swift */; };
+		18316EFD24305EFF000AF586 /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EFC24305EFF000AF586 /* StringExt.swift */; };
+		18316EFF243060C7000AF586 /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EFE243060C7000AF586 /* StringExt.swift */; };
+		18316F02243063F8000AF586 /* DictionaryExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F01243063F8000AF586 /* DictionaryExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +37,14 @@
 		18316EDE24305B06000AF586 /* SecurityDecryptTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecurityDecryptTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18316EE324305B06000AF586 /* SecurityDecryptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityDecryptTests.swift; sourceTree = "<group>"; };
 		18316EE524305B06000AF586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18316EEF24305B13000AF586 /* Decrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decrypt.swift; sourceTree = "<group>"; };
+		18316EF124305B94000AF586 /* String.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = String.txt; sourceTree = "<group>"; };
+		18316EF324305C09000AF586 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		18316EF824305CA4000AF586 /* Read.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Read.swift; sourceTree = "<group>"; };
+		18316EFA24305CCC000AF586 /* ReadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadTests.swift; sourceTree = "<group>"; };
+		18316EFC24305EFF000AF586 /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
+		18316EFE243060C7000AF586 /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
+		18316F01243063F8000AF586 /* DictionaryExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +87,11 @@
 		18316ED724305B06000AF586 /* SecurityDecrypt */ = {
 			isa = PBXGroup;
 			children = (
-				18316ED824305B06000AF586 /* SecurityDecrypt.h */,
-				18316ED924305B06000AF586 /* Info.plist */,
+				18316F0024306315000AF586 /* Extensions */,
+				18316EF524305C3F000AF586 /* Support */,
+				18316EF724305C60000AF586 /* Resources */,
+				18316EEF24305B13000AF586 /* Decrypt.swift */,
+				18316EF824305CA4000AF586 /* Read.swift */,
 			);
 			path = SecurityDecrypt;
 			sourceTree = "<group>";
@@ -80,10 +99,39 @@
 		18316EE224305B06000AF586 /* SecurityDecryptTests */ = {
 			isa = PBXGroup;
 			children = (
-				18316EE324305B06000AF586 /* SecurityDecryptTests.swift */,
 				18316EE524305B06000AF586 /* Info.plist */,
+				18316EFA24305CCC000AF586 /* ReadTests.swift */,
+				18316EE324305B06000AF586 /* SecurityDecryptTests.swift */,
+				18316EFE243060C7000AF586 /* StringExt.swift */,
 			);
 			path = SecurityDecryptTests;
+			sourceTree = "<group>";
+		};
+		18316EF524305C3F000AF586 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				18316ED924305B06000AF586 /* Info.plist */,
+				18316ED824305B06000AF586 /* SecurityDecrypt.h */,
+				18316EF324305C09000AF586 /* Util.swift */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		18316EF724305C60000AF586 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				18316EF124305B94000AF586 /* String.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		18316F0024306315000AF586 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18316F01243063F8000AF586 /* DictionaryExt.swift */,
+				18316EFC24305EFF000AF586 /* StringExt.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +196,7 @@
 				TargetAttributes = {
 					18316ED424305B06000AF586 = {
 						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1140;
 					};
 					18316EDD24305B06000AF586 = {
 						CreatedOnToolsVersion = 11.4;
@@ -178,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18316EF224305B94000AF586 /* String.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +245,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18316F02243063F8000AF586 /* DictionaryExt.swift in Sources */,
+				18316EF024305B13000AF586 /* Decrypt.swift in Sources */,
+				18316EF924305CA4000AF586 /* Read.swift in Sources */,
+				18316EFD24305EFF000AF586 /* StringExt.swift in Sources */,
+				18316EF424305C09000AF586 /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +258,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				18316EE424305B06000AF586 /* SecurityDecryptTests.swift in Sources */,
+				18316EFF243060C7000AF586 /* StringExt.swift in Sources */,
+				18316EFB24305CCC000AF586 /* ReadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +396,7 @@
 		18316EEA24305B06000AF586 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -356,6 +414,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.organization.security.SecurityDecrypt;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -363,6 +422,7 @@
 		18316EEB24305B06000AF586 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -387,6 +447,7 @@
 		18316EED24305B06000AF586 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = KR99UBUHUT;
@@ -405,6 +466,7 @@
 		18316EEE24305B06000AF586 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = KR99UBUHUT;
