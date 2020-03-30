@@ -7,18 +7,28 @@ extension String {
     /// faz a encriptacao usando a chave que foi passada
     func encrypt(key: String) -> String {
         stride(from: 0, to: count, by: key.count)
-            .map { (i: Int) -> String in encrypt(i: i, key: key) }
+            .map { (i: Int) -> String in
+                encrypt(i: i, key: key)
+            }
             .reduce("", +)
     }
-    
+
     /// faz a encriptacao usando a chave que foi passada
     /// pegando as letras da String a partir da variavel i informada
     func encrypt(i: Int, key: String) -> String {
         stride(from: 0, to: key.count, by: 1)
-            .filter { (j: Int) -> Bool in (i + j) < self.count }
-            .map { (Array(key.lowercased())[$0], Array(self)[i + $0]) }
-            .compactMap { Crypt.char(key: $0, fromValue: $1) }
-            .map { (c: Character) -> String in String(c) }
+            .filter { (j: Int) -> Bool in
+                (i + j) < self.count
+            }
+            .map { (j: Int) -> (Character, Character) in
+                (Array(key.lowercased())[j], Array(self)[i + j])
+            }
+            .compactMap { (key: Character, char: Character) -> Character? in
+                Crypt.char(key: key, fromValue: char)
+            }
+            .map { (c: Character) -> String in
+                String(c)
+            }
             .reduce("", +)
     }
 }
@@ -29,18 +39,28 @@ extension String {
     /// faz a decriptacao usando a chave que foi passada
     func decrypt(key: String) -> String {
         stride(from: 0, to: count, by: key.count)
-            .map { (i: Int) -> String in decrypt(i: i, key: key) }
+            .map { (i: Int) -> String in
+                decrypt(i: i, key: key)
+            }
             .reduce("", +)
     }
-    
+
     /// faz a decriptacao usando a chave que foi passada
     /// pegando as letras da String a partir da variavel i informada
     func decrypt(i: Int, key: String) -> String {
         stride(from: 0, to: key.count, by: 1)
-            .filter { (j: Int) -> Bool in (i + j) < self.count }
-            .map { (Array(key.lowercased())[$0], Array(self)[i + $0]) }
-            .compactMap { Crypt.char(key: $0, fromAlphabet: $1) }
-            .map { (c: Character) -> String in String(c) }
+            .filter { (j: Int) -> Bool in
+                (i + j) < self.count
+            }
+            .map { (j: Int) -> (Character, Character) in
+                (Array(key.lowercased())[j], Array(self)[i + j])
+            }
+            .compactMap { (key: Character, char: Character) -> Character? in
+                Crypt.char(key: key, fromAlphabet: char)
+            }
+            .map { (c: Character) -> String in
+                String(c)
+            }
             .reduce("", +)
     }
 }
@@ -54,36 +74,47 @@ extension String {
         let total: Int = frequencies.total
         let const: Int = total * (total - 1)
         let values: [Int] = frequencies.values.map { $0 }
-        
+
         guard const > .zero else { return .zero }
-        
-        let sum: Int = values.reduce(.zero) { $0 + ($1 * ($1 - 1)) }
+
+        let sum: Int = values
+            .reduce(.zero) { (old: Int, new: Int) -> Int in
+                old + (new * (new - 1))
+            }
         return Double(sum) / Double(const)
     }
-    
+
     /// quebra a string em substrings usando o step
     /// depois cacula o indice de coincidencia de cada substrings
     func indexOfCoincidence(step: Int) -> Double {
         substrings(step: step)
-            .reduce(Double.zero) { $0 + $1.indexOfCoincidence() }
-            .map { $0 / Double(step) }
+            .reduce(Double.zero) { (old: Double, word: String) -> Double in
+                old + word.indexOfCoincidence()
+            }
+            .map { (v: Double) -> Double in
+                v / Double(step)
+            }
     }
-    
+
     /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
     func generateIndexOfCoincidence(qtd: Int) -> [Double] {
         stride(from: 1, to: qtd + 1, by: 1)
-            .map { indexOfCoincidence(step: $0) }
+            .map { (i: Int) -> Double in
+                indexOfCoincidence(step: i)
+            }
     }
-    
+
     /// gera dez indiecs de coincidencia e retorna o seu step
     func findStepOfIndexOfCoincidence() -> Int {
-        let coeficient: Double = 0.0667
-        let ic = self.generateIndexOfCoincidence(qtd: 10)
+        (self.generateIndexOfCoincidence(qtd: 10)
             .enumerated()
-            .first(where: { $0.element.distance(to: coeficient) < 0.001 })?
-            .offset
-        
-        return 1 + (ic ?? .zero)
+            .first(where: { (v: EnumeratedSequence<[Double]>.Element) -> Bool in
+                v.element.distance(to: 0.0667) < 0.001
+            })?
+            .offset ?? 0)
+            .map { (i: Int) -> Int in
+                i + 1
+            }
     }
 }
 
@@ -98,35 +129,39 @@ extension String {
                                              range.upperBound - range.lowerBound))
         return String(self[start..<end])
     }
-    
+
     /// retorna um caracter da string de acordo com o index
     /// se o index for invalido retorna nil
     subscript(safe index: Int) -> String? {
         guard index >= .zero, index < count else { return nil }
         return String(Array(self)[index])
     }
-    
+
     /**
      retorna um conjunto de substrings pulando os caracteres de acordo com o step
      ex. "banana".substring(step: 2) == ["bnn", "aaa"]
-     
+
      - parameter step: indica quantas casas ira pular até pegar o próximo caracter
      */
     func substrings(step: Int) -> [String] {
         stride(from: .zero, to: step, by: 1)
-            .map { i in substring(start: i, step: step) }
+            .map { (i: Int) -> String in
+                substring(start: i, step: step)
+            }
     }
-    
+
     /**
      retorna uma substring pulando os caracteres de acordo com o step
      ex. "banana".substring(start 1, step: 2) == "aaa"
-     
+
      - parameter start: indica onde a substring irá começar
      - parameter step: indica quantas casas ira pular até pegar o próximo caracter
      */
     func substring(start: Int = .zero, step: Int = 1) -> String {
         stride(from: start, to: count, by: step)
-            .compactMap { i in self[safe: i] }
+            .compactMap { (i: Int) -> String? in
+                self[safe: i]
+            }
             .reduce("", +)
     }
 }
