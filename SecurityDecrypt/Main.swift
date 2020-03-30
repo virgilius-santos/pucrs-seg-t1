@@ -1,41 +1,31 @@
 
 import Foundation
 
-class Main {
-    
-    static func decrypt(crypt: String) -> String {
-        let step: Int
-        let substrings: [String]
-        let frequencies: [(word: String, freq: [String: Int])]
-        let mostFreq: [(word: String, freq: [(letter: String, qtd: Int)])]
-        var word: String
-        var key: String
-        
-        step = crypt.findStepOfIndexOfCoincidence()
-        print("tamanho da chave: ", step)
-        substrings = crypt.substrings(step: step)
-        frequencies = substrings.map { ($0, $0.frequencies() )}
-        mostFreq = frequencies.map { ($0.word, $0.freq.letterMostFreq(qtd: 3) )}
-        
-        for i in 0 ..< step {
-            print("")
-            mostFreq[i].freq.forEach { print($0) }
-            print("")
-        }
-        
-        //        key = "azipmro"
-        //        key = "avipmro"
-        //        key = "avepmro"
-        //        key = "avelmro"
-        //        key = "aveliro"
-        key = "avelino"
-        word = crypt.decrypt(key: key)
-        
-        let srs = stride(from: 0, to: word.count, by: step)
-            .map { i in word[i..<i+step] + "\t" }
+public class Main {
+    public static func decrypt(crypt: String) -> String {
+        crypt
+            .map { (w: String) -> [String] in
+                let step: Int = w.findStepOfIndexOfCoincidence()
+                return w.substrings(step: step)
+            }
+            .map { (substring: String) -> [String: Int] in
+                substring.frequencies()
+            }
+            .flatMap { (freq: [String: Int]) -> [(letter: String, qtd: Int)] in
+                freq.letterMostFreq(qtd: 1)
+            }
+            .map { (letter: String, _: Int) -> Character in
+                Character(letter)
+            }
+            .compactMap { (c: Character) -> Character? in
+                Crypt.char(key: "e", fromAlphabet: c)
+            }
+            .map { (c: Character) -> String in
+                String(c)
+            }
             .reduce("", +)
-        print(srs)
-        
-        return word
+            .map { (k: String) -> String in
+                crypt.decrypt(key: k)
+            }
     }
 }

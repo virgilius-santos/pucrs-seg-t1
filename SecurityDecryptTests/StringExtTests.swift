@@ -66,10 +66,16 @@ class StringExt: XCTestCase {
         XCTAssertEqual(text1.indexOfCoincidence(step: 4), 0.0413, accuracy: 0.0001)
         XCTAssertEqual(text1.indexOfCoincidence(step: 5), 0.0664, accuracy: 0.0001)
         XCTAssertEqual(text1.indexOfCoincidence(step: 6), 0.0435, accuracy: 0.0001)
+        
+        XCTAssertEqual(text2.indexOfCoincidence(step: 4), 0.04256, accuracy: 0.0001)
+        XCTAssertEqual(text2.indexOfCoincidence(step: 5), 0.07093, accuracy: 0.0001)
+        XCTAssertEqual(text2.indexOfCoincidence(step: 6), 0.0454, accuracy: 0.0001)
+        XCTAssertEqual(text2.indexOfCoincidence(step: 10), 0.07121, accuracy: 0.0001)
     }
     
     func test_findStepOfIndexOfCoincidence() {
         XCTAssertEqual(self.text1.findStepOfIndexOfCoincidence(), 5)
+        XCTAssertEqual(self.text2.findStepOfIndexOfCoincidence(), 5)
     }
     
     func test_indexOfCosincidence_fromSplittedWord() {
@@ -90,4 +96,8 @@ class StringExt: XCTestCase {
     let textEncrypted: String = "ioduezjndpouqiteproitsawssbxhxinglrmpuwjankometdrxhujhlutddrdbpgxhfyljexquofvnoxingvstiglvfsghxinglwvftbwhptwenexhvyjossrucqxtpvkimujhclpqnjossxmclcqhcppyinjgqxwbavxoeqwlejtvloqrlrgbpgstiguxhjpjwspvkiydcqlawgivefvlqeuqhrjpawlenuhpvfudrdeqwleujlrgtvkiysgdplznloeuqgsbbenmnujhhazrhspmgxweevrkouqpenzfljffthrtqndgetvrfuzvkitikqksujhcnfggidbvksmfvkiyvuhhtpirxoujhfuuekirgquqebvdrddjlgkfpwstigivujvperlgwjoshuisihuyiucqhtpvkibbmhvygqufrfcgroxcgeytorwtqgrtlflxwthqwsoogspadgwsgfvhzesawlioiwlezphidujhccbpeyygtxmtwgjitbdoiscthedngdxmjnnenehuszfpisoeudxtiglvlpedpsvrhvmbtnitxjhrpfqspefcwsuuvkiyphwinhqwsfbuwjopfuisucxvaovvxhfthteproiosfhvtiglvfpqgetujhgovpwirbpglawgwswbkwsnmadjexuhgoofvsrnkqytfuwleovkiydcuvyujhmrgqrhtpcwebmgvmteqzrebvlxaofwlrpywlejtwvatjdaazurqeukpisqgrtlfnhevfvkiisvuesiqqxhfvdflfhrvtighqpmqbietvrglfcqypjvgsetpwxalgwsomqqktpgdxangdpauciesuhrsdsgvxavtdrtcwwmttprxamydcsbjhelujbghpkfi"
     
     let text1: String = "CHREEVOAHMAERATBIAXXWTNXBEEOPHBSBQMQEQERBWRVXUOAKXAOSXXWEAHBWGJMMQMNKGRFVGXWTRZXWIAKLXFPSKAUTEMNDCMGTSXMXBTUIADNGMGPSRELXNJELXVRVPPTULHDNQWTWDTYGBPHXTFALJHASVBFXNGLLCHRZBWELEKMSJIKNBHWRJGNMGJSGLXFEYPHAGNRBIEQJTAMRVLCRREMNDGLXRRIMGNSNRWCHRQHAEYEVTAQEBBIPEEWEVKAKOEWADREMXMTBHHCHRTKDNVRZCHRCLQOHPWQAIIWXNRMGWOIIFKEE"
+    
+    let text2: String = """
+cfguscwiawguegfnhxtftiverwhrcjgvgaoqqpycgjpebphhbzcqelzblrgbndvgfcpsuovrjrfruisfpwetjxhxeyvzmtivkiawclpackomtzqiqoegurcposytjpjeneerplfewmoourjlbtjitfzwgosrrvatwflcbnfylbvlsntcuiebulpyncgieycptlfufencggvaxpivoncyerjgwcoguryrdgvtrfuvveqquxioiuiljilsutvhbttufmeovljidvhbttcqhgfphvamhlgtjqqenevkirfcuidjhiirfpfisfusicjcopygqukeoguelgkfxippzmtivkippulxipprjhbpgmwjvklbferqioipsrferqmpp
+"""
 }

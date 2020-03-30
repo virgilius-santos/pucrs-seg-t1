@@ -4,7 +4,6 @@ import Foundation
 // MARK: Vigenere Encrypt
 
 extension String {
-    
     /// faz a encriptacao usando a chave que foi passada
     func encrypt(key: String) -> String {
         stride(from: 0, to: count, by: key.count)
@@ -17,7 +16,7 @@ extension String {
     func encrypt(i: Int, key: String) -> String {
         stride(from: 0, to: key.count, by: 1)
             .filter { (j: Int) -> Bool in (i + j) < self.count }
-            .map { (Array(key.lowercased())[$0],  Array(self)[i + $0]) }
+            .map { (Array(key.lowercased())[$0], Array(self)[i + $0]) }
             .compactMap { Crypt.char(key: $0, fromValue: $1) }
             .map { (c: Character) -> String in String(c) }
             .reduce("", +)
@@ -27,7 +26,6 @@ extension String {
 // MARK: Vigenere Decrypt
 
 extension String {
-    
     /// faz a decriptacao usando a chave que foi passada
     func decrypt(key: String) -> String {
         stride(from: 0, to: count, by: key.count)
@@ -50,17 +48,16 @@ extension String {
 // MARK: Index of coincidence
 
 extension String {
-    
     /// calcula o indice de coincidencia da String usando a frequencia dos caracteres
     func indexOfCoincidence() -> Double {
-        let frequencies: [String : Int] = self.frequencies()
+        let frequencies: [String: Int] = self.frequencies()
         let total: Int = frequencies.total
         let const: Int = total * (total - 1)
         let values: [Int] = frequencies.values.map { $0 }
         
         guard const > .zero else { return .zero }
         
-        let sum: Int = values.reduce(.zero, { $0 + ($1 * ($1 - 1)) })
+        let sum: Int = values.reduce(.zero) { $0 + ($1 * ($1 - 1)) }
         return Double(sum) / Double(const)
     }
     
@@ -80,17 +77,19 @@ extension String {
     
     /// gera dez indiecs de coincidencia e retorna o seu step
     func findStepOfIndexOfCoincidence() -> Int {
-        1 + (generateIndexOfCoincidence(qtd: 10)
+        let coeficient: Double = 0.0667
+        let ic = self.generateIndexOfCoincidence(qtd: 10)
             .enumerated()
-            .max(by: { $0.element < $1.element })?
-            .offset ?? .zero)
+            .first(where: { $0.element.distance(to: coeficient) < 0.001 })?
+            .offset
+        
+        return 1 + (ic ?? .zero)
     }
 }
 
 // MARK: Split String
 
 extension String {
-    
     /// permite retornar uma substring com um range passado.
     /// ex. "palavra"[2..<4] = "la"
     subscript(_ range: CountableRange<Int>) -> String {
@@ -135,11 +134,10 @@ extension String {
 // MARK: Counters
 
 extension String {
-    
     /// conta a frequencia de cada caracter da string
     /// retorna um dicionario com os caracteres e suas quantidades
     func frequencies() -> [String: Int] {
-        reduce(into: [String: Int]()) { (dict, value) in
+        reduce(into: [String: Int]()) { dict, value in
             let str = String(value)
             dict[str] = (dict[str] ?? 0) + 1
         }
@@ -148,8 +146,7 @@ extension String {
 
 // MARK: Formatters
 
-extension String {
-    
+public extension String {
     /// retorna apenas os caracteres alphanumericos
     var alphanumeric: String {
         self.components(separatedBy: CharacterSet.alphanumerics.inverted)
