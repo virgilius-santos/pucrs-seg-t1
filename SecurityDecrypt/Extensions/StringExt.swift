@@ -1,35 +1,42 @@
 
 import Foundation
 
+struct Decode {
+    var key: String
+    var word: String
+
+    func map() -> (w: [Character], [Character]) {
+        (Array(self.word), Array(self.key))
+    }
+}
+
 // MARK: Vigenere Encrypt
 
 extension String {
     /// faz a encriptacao usando a chave que foi passada
     func encrypt(key: String) -> String {
-        stride(from: 0, to: count, by: key.count)
-            .map { (i: Int) -> String in
-                encrypt(i: i, key: key)
+        let selfArray: [Character] = Array(self)
+        let keyArray: [Character] = Array(key)
+        return stride(from: 0, to: count, by: key.count)
+            .flatMap { (i: Int) -> [Character] in
+                encrypt(key: keyArray,
+                        slice: selfArray[i ..< min(i + key.count, selfArray.count)],
+                        i)
+            }
+            .map { (c: Character) -> String in
+                String(c)
             }
             .reduce("", +)
     }
 
     /// faz a encriptacao usando a chave que foi passada
     /// pegando as letras da String a partir da variavel i informada
-    func encrypt(i: Int, key: String) -> String {
-        stride(from: 0, to: key.count, by: 1)
-            .filter { (j: Int) -> Bool in
-                (i + j) < self.count
+    func encrypt(key: [Character], slice: ArraySlice<Character>, _ j: Int) -> [Character] {
+        slice
+            .enumerated()
+            .compactMap { (i: Int, c: Character) -> Character? in
+                Crypt.matrizVigenere[key[i]]?[c]
             }
-            .map { (j: Int) -> (Character, Character) in
-                (Array(key.lowercased())[j], Array(self)[i + j])
-            }
-            .compactMap { (key: Character, char: Character) -> Character? in
-                Crypt.char(key: key, fromValue: char)
-            }
-            .map { (c: Character) -> String in
-                String(c)
-            }
-            .reduce("", +)
     }
 }
 
@@ -38,30 +45,29 @@ extension String {
 extension String {
     /// faz a decriptacao usando a chave que foi passada
     func decrypt(key: String) -> String {
-        stride(from: 0, to: count, by: key.count)
-            .map { (i: Int) -> String in
-                decrypt(i: i, key: key)
-            }
-            .reduce("", +)
+        print("------", key, "------")
+        let selfArray: [Character] = Array(self)
+        let keyArray: [Character] = Array(key)
+        return stride(from: 0, to: count, by: key.count)
+            .flatMap { (i: Int) -> [Character] in
+                decrypt(key: keyArray,
+                        slice: selfArray[i ..< min(i + key.count, selfArray.count)],
+                        i)
+        }
+        .map { (c: Character) -> String in
+            String(c)
+        }
+        .reduce("", +)
     }
 
     /// faz a decriptacao usando a chave que foi passada
     /// pegando as letras da String a partir da variavel i informada
-    func decrypt(i: Int, key: String) -> String {
-        stride(from: 0, to: key.count, by: 1)
-            .filter { (j: Int) -> Bool in
-                (i + j) < self.count
+    func decrypt(key: [Character], slice: ArraySlice<Character>, _ j: Int) -> [Character] {
+        slice
+            .enumerated()
+            .compactMap { (i: Int, c: Character) -> Character? in
+                Crypt.matrizVigenereInverted[key[i]]?[c]
             }
-            .map { (j: Int) -> (Character, Character) in
-                (Array(key.lowercased())[j], Array(self)[i + j])
-            }
-            .compactMap { (key: Character, char: Character) -> Character? in
-                Crypt.char(key: key, fromAlphabet: char)
-            }
-            .map { (c: Character) -> String in
-                String(c)
-            }
-            .reduce("", +)
     }
 }
 
@@ -104,8 +110,8 @@ extension String {
             }
     }
 
-    /// gera dez indiecs de coincidencia e retorna o seu step
-    func findStepOfIndexOfCoincidence() -> Int {
+    /// gera dez indiecs de coincidencia e retorna o primeiro indice do mais proximo ao valor default 0.0667
+    func findFirstClosestndexOfCoincidence() -> Int {
         (self.generateIndexOfCoincidence(qtd: 10)
             .enumerated()
             .first(where: { (v: EnumeratedSequence<[Double]>.Element) -> Bool in
@@ -127,7 +133,7 @@ extension String {
         let start = index(startIndex, offsetBy: max(.zero, range.lowerBound))
         let end = index(start, offsetBy: min(self.count - range.lowerBound,
                                              range.upperBound - range.lowerBound))
-        return String(self[start..<end])
+        return String(self[start ..< end])
     }
 
     /// retorna um caracter da string de acordo com o index

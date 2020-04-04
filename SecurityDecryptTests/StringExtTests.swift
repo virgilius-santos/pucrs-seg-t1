@@ -11,7 +11,9 @@ class StringExt: XCTestCase {
     }
     
     func test_encrypt() {
-        XCTAssertEqual("tikvweovhrcfkvwedthx", "thissentenceissecret".encrypt(key: "abcde"))
+        let e = "thissentenceissecret".encrypt(key: "abcde")
+        XCTAssertEqual("tikvweovhrcfkvwedthx", e)
+        XCTAssertEqual("tikvweovhrcfkvwedthx".count, e.count)
         XCTAssertEqual(textEncrypted, text.encrypt(key: "abcde"))
          XCTAssertEqual("tikv", "this".encrypt(key: "abcde"))
     }
@@ -74,8 +76,8 @@ class StringExt: XCTestCase {
     }
     
     func test_findStepOfIndexOfCoincidence() {
-        XCTAssertEqual(self.text1.findStepOfIndexOfCoincidence(), 5)
-        XCTAssertEqual(self.text2.findStepOfIndexOfCoincidence(), 5)
+        XCTAssertEqual(self.text1.findFirstClosestndexOfCoincidence(), 5)
+        XCTAssertEqual(self.text2.findFirstClosestndexOfCoincidence(), 5)
     }
     
     func test_indexOfCosincidence_fromSplittedWord() {

@@ -19,11 +19,16 @@ class SecurityDecryptTests: XCTestCase {
     }
     
     func test_vigenere() {
-        let matriz: [Character: [Character]] = Crypt.matrizVigenere
+        let matriz: [Character: [Character: Character]] = Crypt.matrizVigenere
         XCTAssertEqual(matriz.count, 26)
-        for (i, array) in matriz.sorted(by: { $0.key < $1.key}) {
-            XCTAssertEqual(array.count, 26)
-            XCTAssertEqual(array[0], i)
+        for (k, dict) in matriz {
+            XCTAssertEqual(dict.count, 26, "\(k)")
+        }
+        let a: [Character] = Crypt.alphabet
+        for i in 0..<26 {
+            for j in 0..<26 {
+                XCTAssertEqual(matriz[a[i]]![a[j]], a[(i+j)%26])
+            }
         }
     }
 }
