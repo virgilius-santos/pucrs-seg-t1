@@ -38,6 +38,16 @@
                ReferencedContainer = "container:SecurityDecrypt.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "18316EDD24305B06000AF586"
+               BuildableName = "SecurityDecryptTests.xctest"
+               BlueprintName = "SecurityDecryptTests"
+               ReferencedContainer = "container:SecurityDecrypt.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

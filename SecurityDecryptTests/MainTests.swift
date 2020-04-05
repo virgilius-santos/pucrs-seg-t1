@@ -5,7 +5,9 @@ import XCTest
 class MainTests: XCTestCase {
 
     func test_decrypt() {
-        XCTAssertEqual(Main.decrypt(crypt: textEncrypted), text)
+        self.measure {
+            XCTAssertEqual(Main.decrypt(crypt: textEncrypted), text)
+        }
     }
 }
     let textEncrypted: String = """

@@ -4,14 +4,14 @@ import XCTest
 
 class DictionaryExtTests: XCTestCase {
     func test_frequency_total() {
-        let word: String = "addfffgggg"
-        let frequency: [Character: Int] = frequencies(selfArray: word.array)
-        XCTAssertEqual(frequency.total, word.count)
+        let array = "addfffgggg".array
+        let frequency: [Character: Int] = array.frequencies()
+        XCTAssertEqual(frequency.total, array.count)
     }
     
     func test_frequency_letterMostFreq() {
-        let word: String = "addfffgggg"
-        let frequency: [Character: Int] = frequencies(selfArray: word.array)
+        let array = "addfffgggg".array
+        let frequency: [Character: Int] = array.frequencies()
         let letterMostFreq = frequency.letterMostFreq(qtd: 2)
         XCTAssertEqual(letterMostFreq.count, 2)
         XCTAssertEqual(letterMostFreq[0].letter, "g")

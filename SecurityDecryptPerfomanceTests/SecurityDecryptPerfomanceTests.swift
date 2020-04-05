@@ -4,8 +4,8 @@ import XCTest
 
 class PerfomanceTests: XCTestCase {
     
-    let textEncrypted: String = Read.read("String2", format: "txt")!.alphanumeric.lowercased()
-    let decrypt: String = Read.read("String3", format: "txt")!.alphanumeric.lowercased()
+    let textEncrypted: String = Read.read("String2")!.alphanumeric.lowercased()
+    let decrypt: String = Read.read("String3")!.alphanumeric.lowercased()
     
     func testPerformanceTotal() throws {
         self.measure {
@@ -13,15 +13,27 @@ class PerfomanceTests: XCTestCase {
         }
     }
     
+    func testPerformanceTotalEngrypt() throws {
+        self.measure {
+            XCTAssertEqual(Main.encrypt(crypt: decrypt, key: "meunome"), textEncrypted)
+        }
+    }
+    
     func testPerformanceDecrypt() throws {
         self.measure {
-            XCTAssertEqual(textEncrypted.decrypt(key: "meunome".array), decrypt)
+            XCTAssertEqual(textEncrypted.crypt.decrypt(key: "meunome".array), decrypt)
         }
     }
     
     func testPerformanceKeySize() throws {
         self.measure {
-            XCTAssertEqual(textEncrypted.findFirstClosestndexOfCoincidence(), 7)
+            XCTAssertEqual(textEncrypted.crypt.findFirstClosestIndexOfCoincidence(), 7)
+        }
+    }
+    
+    func testPerformanceFindKey() throws {
+        self.measure {
+            XCTAssertEqual(textEncrypted.crypt.findKey(), "meunome".array)
         }
     }
 }
