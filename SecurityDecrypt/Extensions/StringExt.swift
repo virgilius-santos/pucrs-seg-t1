@@ -1,16 +1,7 @@
 
 import Foundation
 
-struct Decode {
-    var key: String
-    var word: String
-
-    func map() -> (w: [Character], [Character]) {
-        (Array(self.word), Array(self.key))
-    }
-}
-
-// MARK: Vigenere Encrypt
+// MARK: - Vigenere Encrypt
 
 extension String {
     /// faz a encriptacao usando a chave que foi passada
@@ -40,14 +31,14 @@ extension String {
     }
 }
 
-// MARK: Vigenere Decrypt
+// MARK: - Vigenere Decrypt
 
 extension String {
     /// faz a decriptacao usando a chave que foi passada
-    func decrypt(key: String) -> String {
+    func decrypt(key: [Character]) -> String {
         print("------", key, "------")
         let selfArray: [Character] = Array(self)
-        let keyArray: [Character] = Array(key)
+        let keyArray: [Character] = key
         return stride(from: 0, to: count, by: key.count)
             .flatMap { (i: Int) -> [Character] in
                 decrypt(key: keyArray,
@@ -71,48 +62,49 @@ extension String {
     }
 }
 
-// MARK: Index of coincidence
+// MARK: - Index of coincidence
+
+/// quebra a string em substrings usando o step
+/// depois cacula o indice de coincidencia de cada substrings
+func indexOfCoincidence(step: Int, selfArray: [Character]) -> Double {
+    substrings(step: step, selfArray: selfArray)
+        .reduce(Double.zero) { (old: Double, word: [Character]) -> Double in
+            old + indexOfCoincidence(selfArray: word)
+    }
+    .map { (v: Double) -> Double in
+        v / Double(step)
+    }
+}
+
+/// calcula o indice de coincidencia da String usando a frequencia dos caracteres
+func indexOfCoincidence(selfArray: [Character]) -> Double {
+    let freqs: [Character: Int] = frequencies(selfArray: selfArray)
+    let total: Int = freqs.total
+    let const: Int = total * (total - 1)
+    let values: [Int] = freqs.values.map { $0 }
+    
+    guard const > .zero else { return .zero }
+    
+    let sum: Int = values
+        .reduce(.zero) { (old: Int, new: Int) -> Int in
+            old + (new * (new - 1))
+    }
+    return Double(sum) / Double(const)
+}
+
+/// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
+func generateIndexOfCoincidence(qtd: Int, selfArray: [Character]) -> [Double] {
+    stride(from: 1, to: qtd + 1, by: 1)
+        .map { (i: Int) -> Double in
+            indexOfCoincidence(step: i, selfArray: selfArray)
+    }
+}
 
 extension String {
-    /// calcula o indice de coincidencia da String usando a frequencia dos caracteres
-    func indexOfCoincidence() -> Double {
-        let frequencies: [String: Int] = self.frequencies()
-        let total: Int = frequencies.total
-        let const: Int = total * (total - 1)
-        let values: [Int] = frequencies.values.map { $0 }
-
-        guard const > .zero else { return .zero }
-
-        let sum: Int = values
-            .reduce(.zero) { (old: Int, new: Int) -> Int in
-                old + (new * (new - 1))
-            }
-        return Double(sum) / Double(const)
-    }
-
-    /// quebra a string em substrings usando o step
-    /// depois cacula o indice de coincidencia de cada substrings
-    func indexOfCoincidence(step: Int) -> Double {
-        substrings(step: step)
-            .reduce(Double.zero) { (old: Double, word: String) -> Double in
-                old + word.indexOfCoincidence()
-            }
-            .map { (v: Double) -> Double in
-                v / Double(step)
-            }
-    }
-
-    /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
-    func generateIndexOfCoincidence(qtd: Int) -> [Double] {
-        stride(from: 1, to: qtd + 1, by: 1)
-            .map { (i: Int) -> Double in
-                indexOfCoincidence(step: i)
-            }
-    }
 
     /// gera dez indiecs de coincidencia e retorna o primeiro indice do mais proximo ao valor default 0.0667
     func findFirstClosestndexOfCoincidence() -> Int {
-        (self.generateIndexOfCoincidence(qtd: 10)
+        (generateIndexOfCoincidence(qtd: 10, selfArray: array)
             .enumerated()
             .first(where: { (v: EnumeratedSequence<[Double]>.Element) -> Bool in
                 v.element.distance(to: 0.0667) < 0.001
@@ -124,68 +116,53 @@ extension String {
     }
 }
 
-// MARK: Split String
+// MARK: - Split String
 
-extension String {
-    /// permite retornar uma substring com um range passado.
-    /// ex. "palavra"[2..<4] = "la"
-    subscript(_ range: CountableRange<Int>) -> String {
-        let start = index(startIndex, offsetBy: max(.zero, range.lowerBound))
-        let end = index(start, offsetBy: min(self.count - range.lowerBound,
-                                             range.upperBound - range.lowerBound))
-        return String(self[start ..< end])
-    }
-
-    /// retorna um caracter da string de acordo com o index
-    /// se o index for invalido retorna nil
-    subscript(safe index: Int) -> String? {
-        guard index >= .zero, index < count else { return nil }
-        return String(Array(self)[index])
-    }
-
-    /**
-     retorna um conjunto de substrings pulando os caracteres de acordo com o step
-     ex. "banana".substring(step: 2) == ["bnn", "aaa"]
-
-     - parameter step: indica quantas casas ira pular até pegar o próximo caracter
-     */
-    func substrings(step: Int) -> [String] {
-        stride(from: .zero, to: step, by: 1)
-            .map { (i: Int) -> String in
-                substring(start: i, step: step)
-            }
-    }
-
-    /**
-     retorna uma substring pulando os caracteres de acordo com o step
-     ex. "banana".substring(start 1, step: 2) == "aaa"
-
-     - parameter start: indica onde a substring irá começar
-     - parameter step: indica quantas casas ira pular até pegar o próximo caracter
-     */
-    func substring(start: Int = .zero, step: Int = 1) -> String {
-        stride(from: start, to: count, by: step)
-            .compactMap { (i: Int) -> String? in
-                self[safe: i]
-            }
-            .reduce("", +)
+/**
+ retorna um conjunto de substrings pulando os caracteres de acordo com o step
+ ex. "banana".substring(step: 2) == ["bnn", "aaa"]
+ 
+ - parameter step: indica quantas casas ira pular até pegar o próximo caracter
+ */
+func substrings(step: Int, selfArray: [Character]) -> [[Character]] {
+    stride(from: .zero, to: step, by: 1)
+        .map { (i: Int) -> [Character] in
+            substring(start: i, step: step, selfArray: selfArray)
     }
 }
 
-// MARK: Counters
-
-extension String {
-    /// conta a frequencia de cada caracter da string
-    /// retorna um dicionario com os caracteres e suas quantidades
-    func frequencies() -> [String: Int] {
-        reduce(into: [String: Int]()) { dict, value in
-            let str = String(value)
-            dict[str] = (dict[str] ?? 0) + 1
-        }
+/**
+ retorna uma substring pulando os caracteres de acordo com o step
+ ex. "banana".substring(start 1, step: 2) == "aaa"
+ 
+ - parameter start: indica onde a substring irá começar
+ - parameter step: indica quantas casas ira pular até pegar o próximo caracter
+ */
+func substring(start: Int = .zero, step: Int = 1, selfArray: [Character]) -> [Character] {
+    stride(from: start, to: selfArray.count, by: max(step, 1))
+        .map { (i: Int) -> Character in
+            selfArray[i]
     }
 }
 
-// MARK: Formatters
+extension String {
+    
+    var array: [Character] {
+        Array(self)
+    }
+}
+
+// MARK: - Counters
+
+/// conta a frequencia de cada caracter da string
+/// retorna um dicionario com os caracteres e suas quantidades
+func frequencies(selfArray: [Character]) -> [Character: Int] {
+    selfArray.reduce(into: [Character: Int]()) { dict, value in
+        dict[value] = (dict[value] ?? 0) + 1
+    }
+}
+
+// MARK: - Formatters
 
 public extension String {
     /// retorna apenas os caracteres alphanumericos

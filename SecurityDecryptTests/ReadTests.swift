@@ -4,22 +4,11 @@ import XCTest
 
 class ReadTests: XCTestCase {
 
-    var sut: Read!
-    
-    override func setUpWithError() throws {
-        sut = .init()
-    }
-
-    override func tearDownWithError() throws {
-        sut = nil
-    }
-
     func test_read() throws {
-        var read: String!
-        XCTAssertNoThrow(read = try sut.read("String", format: "txt") )
-        XCTAssertEqual(read, text)
-        
-        XCTAssertNil(try? sut.read("na", format: "txt"))
+        XCTAssert(Read.write("String", format: "txt", content: ""))
+        XCTAssertEqual(Read.read("String", format: "txt"), "\n")
+        XCTAssert(Read.write("String", format: "txt", content: text))
+        XCTAssertEqual(Read.read("String", format: "txt"), text)
     }
     
     let text: String = "InBrazilalotofpeopletrytosavetimeInmostfamiliesboththehusbandandthewifeworkfulltimesotheirfreetimeisveryshortandveryimportanttothemTheylookforquickandconvenientwaystodotheirshoppingandotherthingssotheycanhavefreetimetoenjoythemselvesanddothethingstheyreallyliketodoBackinthedaypeopleusedtogotomanydifferentplacestobuythethingstheyneededathomeTheyusedtogotothebutcherformeatandchickentothefruitmarketforfreshfruitandtothebakeryforbreadNowadaysmostpeoplejustgotooneplacetogeteverythingtheyneedTheycanbuyfruitvegetablesbreadmeatmilkandfrozenfoodsattheirlocalsupermarketWhenpeopleeatouttheyoftengotofastfoodrestaurantsTherepeopleordertheirfoodatthecounterandhavetowaitonlyafewsecondsorminutesThentheycarrytheirfoodtoatablesitdowneatitandthrowtheirtrashawaySometimespeopleleavetheirtrashonthetablefortheemployeestocleanupItdoesnttaketoolongtoeatamealatafastfoodrestaurantbutitsnotalwaysahealthychoice\n"

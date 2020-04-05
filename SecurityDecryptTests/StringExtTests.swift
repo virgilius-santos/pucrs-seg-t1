@@ -5,9 +5,9 @@ import XCTest
 class StringExt: XCTestCase {
     
     func test_decrypt() {
-        XCTAssertEqual("thissentenceissecret", "tikvweovhrcfkvwedthx".decrypt(key: "abcde"))
-        XCTAssertEqual("this", "tikv".decrypt(key: "abcde"))
-        XCTAssertEqual(text, textEncrypted.decrypt(key: "abcde"))
+        XCTAssertEqual("thissentenceissecret", "tikvweovhrcfkvwedthx".decrypt(key: "abcde".array))
+        XCTAssertEqual("this", "tikv".decrypt(key: "abcde".array))
+        XCTAssertEqual(text, textEncrypted.decrypt(key: "abcde".array))
     }
     
     func test_encrypt() {
@@ -24,26 +24,27 @@ class StringExt: XCTestCase {
     }
     
     func test_substring() {
-        XCTAssertEqual("123412341234".substring(), "123412341234")
-        XCTAssertEqual("123412341234".substring(step: 2), "131313")
-        XCTAssertEqual("123412341234".substring(step: 3), "1432")
+        XCTAssertEqual(substring(selfArray: "123412341234".array), "123412341234".array)
+        XCTAssertEqual(substring(step: 2, selfArray: "123412341234".array), "131313".array)
+        XCTAssertEqual(substring(step: 3, selfArray: "123412341234".array), "1432".array)
     }
     
     func test_substrings() {
-        XCTAssertEqual("1212".substrings(step: 2)[0], "11")
-        XCTAssertEqual("1212".substrings(step: 2)[1], "22")
-        XCTAssertEqual("12121".substrings(step: 2)[0], "111")
+        XCTAssertEqual(substrings(step: 2, selfArray: "1212".array)[0], "11".array)
+        XCTAssertEqual(substrings(step: 2, selfArray: "1212".array)[1], "22".array)
+        XCTAssertEqual(substrings(step: 2, selfArray: "12121".array)[0], "111".array)
         
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[0], "tece")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[1], "hnec")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[2], "itir")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[3], "sese")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[4], "snst")
+        let result = substrings(step: 5, selfArray: "thissentenceissecret".array)
+        XCTAssertEqual(result[0], "tece".array)
+        XCTAssertEqual(result[1], "hnec".array)
+        XCTAssertEqual(result[2], "itir".array)
+        XCTAssertEqual(result[3], "sese".array)
+        XCTAssertEqual(result[4], "snst".array)
     }
     
     func test_frequency() {
         let word: String = "addfffgggg"
-        let frequency: [String: Int] = word.frequencies()
+        let frequency: [Character: Int] = frequencies(selfArray: word.array)
         XCTAssertEqual(frequency["a"], 1)
         XCTAssertEqual(frequency["d"], 2)
         XCTAssertEqual(frequency["f"], 3)
@@ -51,28 +52,28 @@ class StringExt: XCTestCase {
     }
     
     func test_indexOfCoincidence_fromWord() {
-        XCTAssertEqual("".indexOfCoincidence(), 0)
-        XCTAssertEqual("4444".indexOfCoincidence(), 1)
+        XCTAssertEqual(indexOfCoincidence(selfArray: "".array), 0)
+        XCTAssertEqual(indexOfCoincidence(selfArray: "4444".array), 1)
         
         let text: String = self.text.lowercased().alphanumeric
-        XCTAssertEqual(text.indexOfCoincidence(), 0.071728, accuracy: 0.00001)
+        XCTAssertEqual(indexOfCoincidence(selfArray: text.array), 0.071728, accuracy: 0.00001)
                 
-        XCTAssertEqual(text1.indexOfCoincidence(), 0.04470, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(selfArray: text1.array), 0.04470, accuracy: 0.0001)
     }
     
     func test_indexOfCoincidence_fromSplittedWord() {
-        XCTAssertEqual("45454545".indexOfCoincidence(step: 2), 1)
+        XCTAssertEqual(indexOfCoincidence(step: 2, selfArray: "45454545".array), 1)
         
-        XCTAssertEqual(text1.indexOfCoincidence(step: 2), 0.0430, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 3), 0.0463, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 4), 0.0413, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 5), 0.0664, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 6), 0.0435, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 2, selfArray: text1.array), 0.0430, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 3, selfArray: text1.array), 0.0463, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 4, selfArray: text1.array), 0.0413, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 5, selfArray: text1.array), 0.0664, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 6, selfArray: text1.array), 0.0435, accuracy: 0.0001)
         
-        XCTAssertEqual(text2.indexOfCoincidence(step: 4), 0.04256, accuracy: 0.0001)
-        XCTAssertEqual(text2.indexOfCoincidence(step: 5), 0.07093, accuracy: 0.0001)
-        XCTAssertEqual(text2.indexOfCoincidence(step: 6), 0.0454, accuracy: 0.0001)
-        XCTAssertEqual(text2.indexOfCoincidence(step: 10), 0.07121, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 4, selfArray: text2.array), 0.04256, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 5, selfArray: text2.array), 0.07093, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 6, selfArray: text2.array), 0.0454, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 10, selfArray: text2.array), 0.07121, accuracy: 0.0001)
     }
     
     func test_findStepOfIndexOfCoincidence() {
@@ -81,7 +82,7 @@ class StringExt: XCTestCase {
     }
     
     func test_indexOfCosincidence_fromSplittedWord() {
-        let ics: [Double] = text1.generateIndexOfCoincidence(qtd: 6)
+        let ics: [Double] = generateIndexOfCoincidence(qtd: 6, selfArray: text1.array)
         
         XCTAssertEqual(ics.count, 6)
         XCTAssertEqual(ics[0], 0.0447, accuracy: 0.0001)

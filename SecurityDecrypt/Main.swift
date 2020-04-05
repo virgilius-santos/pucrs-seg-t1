@@ -4,30 +4,23 @@ import Foundation
 public class Main {
     public static func decrypt(crypt: String) -> String {
         crypt
-            .map { (word: String) -> [String] in
+            .map { (word: String) -> [[Character]] in
                 word
                     .findFirstClosestndexOfCoincidence()
-                    .map { (index: Int) -> [String] in
-                        word.substrings(step: index)
+                    .map { (index: Int) -> [[Character]] in
+                        substrings(step: index, selfArray: word.array)
                     }
             }
-            .map { (substring: String) -> [String: Int] in
-                substring.frequencies()
+            .map { (substrings: [Character]) -> [Character: Int] in
+                frequencies(selfArray: substrings)
             }
-            .flatMap { (freq: [String: Int]) -> [(letter: String, qtd: Int)] in
+            .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
                 freq.letterMostFreq(qtd: 1)
             }
-            .map { (letter: String, _: Int) -> Character in
-                Character(letter)
+            .compactMap { (letter: Character, _: Int) -> Character? in
+                Crypt.matrizVigenereInverted["e"]?[letter]
             }
-            .compactMap { (c: Character) -> Character? in
-                Crypt.matrizVigenereInverted["e"]?[c]
-            }
-            .map { (c: Character) -> String in
-                String(c)
-            }
-            .reduce("", +)
-            .map { (k: String) -> String in
+            .map { (k: [Character]) -> String in
                 crypt.decrypt(key: k)
             }
     }

@@ -2,4 +2,4 @@
 import Foundation
 import SecurityDecrypt
 
-print(Main.decrypt(crypt: textEncrypted.alphanumeric.lowercased()))
+print(Main.decrypt(crypt: (Read.read("String", format: "txt"))?.alphanumeric.lowercased() ?? "") )
