@@ -51,28 +51,28 @@ class StringExt: XCTestCase {
     }
     
     func test_indexOfCoincidence_fromWord() {
-        XCTAssertEqual("".indexOfCoincidence(), 0)
-        XCTAssertEqual("4444".indexOfCoincidence(), 1)
+        XCTAssertEqual(indexOfCoincidence(selfArray: "".array), 0)
+        XCTAssertEqual(indexOfCoincidence(selfArray: "4444".array), 1)
         
         let text: String = self.text.lowercased().alphanumeric
-        XCTAssertEqual(text.indexOfCoincidence(), 0.071728, accuracy: 0.00001)
+        XCTAssertEqual(indexOfCoincidence(selfArray: text.array), 0.071728, accuracy: 0.00001)
                 
-        XCTAssertEqual(text1.indexOfCoincidence(), 0.04470, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(selfArray: text1.array), 0.04470, accuracy: 0.0001)
     }
     
     func test_indexOfCoincidence_fromSplittedWord() {
-        XCTAssertEqual("45454545".indexOfCoincidence(step: 2), 1)
+        XCTAssertEqual(indexOfCoincidence(step: 2, word: "45454545"), 1)
         
-        XCTAssertEqual(text1.indexOfCoincidence(step: 2), 0.0430, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 3), 0.0463, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 4), 0.0413, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 5), 0.0664, accuracy: 0.0001)
-        XCTAssertEqual(text1.indexOfCoincidence(step: 6), 0.0435, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 2, word: text1), 0.0430, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 3, word: text1), 0.0463, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 4, word: text1), 0.0413, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 5, word: text1), 0.0664, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 6, word: text1), 0.0435, accuracy: 0.0001)
         
-        XCTAssertEqual(text2.indexOfCoincidence(step: 4), 0.04256, accuracy: 0.0001)
-        XCTAssertEqual(text2.indexOfCoincidence(step: 5), 0.07093, accuracy: 0.0001)
-        XCTAssertEqual(text2.indexOfCoincidence(step: 6), 0.0454, accuracy: 0.0001)
-        XCTAssertEqual(text2.indexOfCoincidence(step: 10), 0.07121, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 4, word: text2), 0.04256, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 5, word: text2), 0.07093, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 6, word: text2), 0.0454, accuracy: 0.0001)
+        XCTAssertEqual(indexOfCoincidence(step: 10, word: text2), 0.07121, accuracy: 0.0001)
     }
     
     func test_findStepOfIndexOfCoincidence() {

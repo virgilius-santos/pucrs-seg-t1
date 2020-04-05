@@ -73,40 +73,41 @@ extension String {
 
 // MARK: Index of coincidence
 
+/// quebra a string em substrings usando o step
+/// depois cacula o indice de coincidencia de cada substrings
+func indexOfCoincidence(step: Int, word: String) -> Double {
+    word.substrings(step: step)
+        .reduce(Double.zero) { (old: Double, word: String) -> Double in
+            old + indexOfCoincidence(selfArray: word.array)
+    }
+    .map { (v: Double) -> Double in
+        v / Double(step)
+    }
+}
+
+/// calcula o indice de coincidencia da String usando a frequencia dos caracteres
+func indexOfCoincidence(selfArray: [Character]) -> Double {
+    let freqs: [Character: Int] = frequencies(selfArray: selfArray)
+    let total: Int = freqs.total
+    let const: Int = total * (total - 1)
+    let values: [Int] = freqs.values.map { $0 }
+    
+    guard const > .zero else { return .zero }
+    
+    let sum: Int = values
+        .reduce(.zero) { (old: Int, new: Int) -> Int in
+            old + (new * (new - 1))
+    }
+    return Double(sum) / Double(const)
+}
+
 extension String {
-    /// calcula o indice de coincidencia da String usando a frequencia dos caracteres
-    func indexOfCoincidence() -> Double {
-        let freqs: [Character: Int] = frequencies(selfArray: array)
-        let total: Int = freqs.total
-        let const: Int = total * (total - 1)
-        let values: [Int] = freqs.values.map { $0 }
-
-        guard const > .zero else { return .zero }
-
-        let sum: Int = values
-            .reduce(.zero) { (old: Int, new: Int) -> Int in
-                old + (new * (new - 1))
-            }
-        return Double(sum) / Double(const)
-    }
-
-    /// quebra a string em substrings usando o step
-    /// depois cacula o indice de coincidencia de cada substrings
-    func indexOfCoincidence(step: Int) -> Double {
-        substrings(step: step)
-            .reduce(Double.zero) { (old: Double, word: String) -> Double in
-                old + word.indexOfCoincidence()
-            }
-            .map { (v: Double) -> Double in
-                v / Double(step)
-            }
-    }
-
+    
     /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
     func generateIndexOfCoincidence(qtd: Int) -> [Double] {
         stride(from: 1, to: qtd + 1, by: 1)
             .map { (i: Int) -> Double in
-                indexOfCoincidence(step: i)
+                indexOfCoincidence(step: i, word: self)
             }
     }
 
