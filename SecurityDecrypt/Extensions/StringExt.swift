@@ -150,6 +150,10 @@ extension String {
     var array: [Character] {
         Array(self)
     }
+    
+    var crypt: Crypt {
+        .init(self)
+    }
 }
 
 // MARK: - Counters
