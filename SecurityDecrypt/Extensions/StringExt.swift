@@ -76,10 +76,10 @@ extension String {
 extension String {
     /// calcula o indice de coincidencia da String usando a frequencia dos caracteres
     func indexOfCoincidence() -> Double {
-        let frequencies: [String: Int] = self.frequencies()
-        let total: Int = frequencies.total
+        let freqs: [Character: Int] = frequencies(selfArray: array)
+        let total: Int = freqs.total
         let const: Int = total * (total - 1)
-        let values: [Int] = frequencies.values.map { $0 }
+        let values: [Int] = freqs.values.map { $0 }
 
         guard const > .zero else { return .zero }
 
@@ -142,6 +142,10 @@ extension String {
         guard index >= .zero, index < count else { return nil }
         return String(Array(self)[index])
     }
+    
+    var array: [Character] {
+        Array(self)
+    }
 
     /**
      retorna um conjunto de substrings pulando os caracteres de acordo com o step
@@ -174,14 +178,11 @@ extension String {
 
 // MARK: Counters
 
-extension String {
-    /// conta a frequencia de cada caracter da string
-    /// retorna um dicionario com os caracteres e suas quantidades
-    func frequencies() -> [String: Int] {
-        reduce(into: [String: Int]()) { dict, value in
-            let str = String(value)
-            dict[str] = (dict[str] ?? 0) + 1
-        }
+/// conta a frequencia de cada caracter da string
+/// retorna um dicionario com os caracteres e suas quantidades
+func frequencies(selfArray: [Character]) -> [Character: Int] {
+    selfArray.reduce(into: [Character: Int]()) { dict, value in
+        dict[value] = (dict[value] ?? 0) + 1
     }
 }
 

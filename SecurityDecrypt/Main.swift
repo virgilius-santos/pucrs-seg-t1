@@ -11,17 +11,14 @@ public class Main {
                         word.substrings(step: index)
                     }
             }
-            .map { (substring: String) -> [String: Int] in
-                substring.frequencies()
+            .map { (substring: String) -> [Character: Int] in
+                frequencies(selfArray: substring.array)
             }
-            .flatMap { (freq: [String: Int]) -> [(letter: String, qtd: Int)] in
+            .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
                 freq.letterMostFreq(qtd: 1)
             }
-            .map { (letter: String, _: Int) -> Character in
-                Character(letter)
-            }
-            .compactMap { (c: Character) -> Character? in
-                Crypt.matrizVigenereInverted["e"]?[c]
+            .compactMap { (letter: Character, _: Int) -> Character? in
+                Crypt.matrizVigenereInverted["e"]?[letter]
             }
             .map { (c: Character) -> String in
                 String(c)

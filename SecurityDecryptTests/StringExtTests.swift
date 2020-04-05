@@ -43,7 +43,7 @@ class StringExt: XCTestCase {
     
     func test_frequency() {
         let word: String = "addfffgggg"
-        let frequency: [String: Int] = word.frequencies()
+        let frequency: [Character: Int] = frequencies(selfArray: word.array)
         XCTAssertEqual(frequency["a"], 1)
         XCTAssertEqual(frequency["d"], 2)
         XCTAssertEqual(frequency["f"], 3)
