@@ -2,7 +2,7 @@
 import Foundation
 
 public class Read {
-    public static func read(_ file: String, format: String) -> String? {
+    public static func read(_ file: String, format: String = "txt") -> String? {
         if let path = bundle.path(forResource: file, ofType: format) {
             return try? String(contentsOfFile: path, encoding: .utf8)
         }

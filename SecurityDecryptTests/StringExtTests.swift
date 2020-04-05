@@ -11,11 +11,11 @@ class StringExt: XCTestCase {
     }
     
     func test_encrypt() {
-        let e = "thissentenceissecret".encrypt(key: "abcde")
+        let e = "thissentenceissecret".crypt.encrypt(key: "abcde".array)
         XCTAssertEqual("tikvweovhrcfkvwedthx", e)
         XCTAssertEqual("tikvweovhrcfkvwedthx".count, e.count)
-        XCTAssertEqual(textEncrypted, text.encrypt(key: "abcde"))
-         XCTAssertEqual("tikv", "this".encrypt(key: "abcde"))
+        XCTAssertEqual(textEncrypted, text.crypt.encrypt(key: "abcde".array))
+         XCTAssertEqual("tikv", "this".crypt.encrypt(key: "abcde".array))
     }
     
     func test_alphanumeric() {

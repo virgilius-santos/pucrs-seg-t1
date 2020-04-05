@@ -4,8 +4,8 @@ import XCTest
 
 class PerfomanceTests: XCTestCase {
     
-    let textEncrypted: String = Read.read("String2", format: "txt")!.alphanumeric.lowercased()
-    let decrypt: String = Read.read("String3", format: "txt")!.alphanumeric.lowercased()
+    let textEncrypted: String = Read.read("String2")!.alphanumeric.lowercased()
+    let decrypt: String = Read.read("String3")!.alphanumeric.lowercased()
     
     func testPerformanceTotal() throws {
         self.measure {

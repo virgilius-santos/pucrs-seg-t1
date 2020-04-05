@@ -15,20 +15,20 @@ public final class Crypt {
     func decrypt() -> String {
         findFirstClosestndexOfCoincidence()
             .map { (index: Int) -> [[Character]] in
-                substrings(step: index, selfArray: word.array)
-        }
-        .map { (substrings: [Character]) -> [Character: Int] in
-            substrings.frequencies()
-        }
-        .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
-            freq.letterMostFreq(qtd: 1)
-        }
-        .compactMap { (letter: Character, _: Int) -> Character? in
-            Crypt.matrizVigenereInverted["e"]?[letter]
-        }
-        .map { (k: [Character]) -> String in
-            decrypt(key: k)
-        }
+                selfArray.substrings(step: index)
+            }
+            .map { (substrings: [Character]) -> [Character: Int] in
+                substrings.frequencies()
+            }
+            .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
+                freq.letterMostFreq(qtd: 1)
+            }
+            .compactMap { (letter: Character, _: Int) -> Character? in
+                Crypt.matrizVigenereInverted["e"]?[letter]
+            }
+            .map { (k: [Character]) -> String in
+                decrypt(key: k)
+            }
 //        findFirstClosestndexOfCoincidence()
 //            .map { (index: Int) -> [[Character: Int]] in
 //                frequencies(step: index)
@@ -44,60 +44,18 @@ public final class Crypt {
 //            }
     }
     
-    // MARK: - Vigenere Decrypt
-    
-    /// faz a decriptacao usando a chave que foi passada
-    func decrypt(key: [Character]) -> String {
-        stride(from: 0, to: key.count, by: 1)
-            .reduce(into: newArray, { (array: inout [Character], keyIndex: Int) in
-                stride(from: keyIndex, to: selfArray.count, by: max(key.count, 1))
-                    .forEach { [m = Crypt.matrizVigenereInverted] (charIndex: Int) in
-                        array[charIndex] = m[key[keyIndex]]![selfArray[charIndex]]!
-                }
-            })
-            .map { (array: [Character]) -> String in
-                array.string
-        }
-    }
-    
-    // MARK: - Vigenere Encrypt
-    
-    /// faz a encriptacao usando a chave que foi passada
-    func encrypt(key: [Character]) -> String {
-        stride(from: 0, to: selfArray.count, by: key.count)
-            .flatMap { (i: Int) -> [Character] in
-                encrypt(key: key,
-                        slice: selfArray[i ..< min(i + key.count, selfArray.count)],
-                        i)
-        }
-        .map { (c: Character) -> String in
-            String(c)
-        }
-        .reduce("", +)
-    }
-    
-    /// faz a encriptacao usando a chave que foi passada
-    /// pegando as letras da String a partir da variavel i informada
-    func encrypt(key: [Character], slice: ArraySlice<Character>, _ j: Int) -> [Character] {
-        slice
-            .enumerated()
-            .compactMap { (i: Int, c: Character) -> Character? in
-                Crypt.matrizVigenere[key[i]]?[c]
-        }
-    }
-    
     // MARK: Index of coincidence
     
     /// quebra a string em substrings usando o step
     /// depois cacula o indice de coincidencia de cada substrings
     func indexOfCoincidence(step: Int = 1) -> Double {
-        substrings(step: step, selfArray: selfArray)
+        selfArray.substrings(step: step)
             .reduce(Double.zero) { (old: Double, word: [Character]) -> Double in
                 old + indexOfCoincidence(freqs: word.frequencies())
-        }
-        .map { (v: Double) -> Double in
-            v / Double(step)
-        }
+            }
+            .map { (v: Double) -> Double in
+                v / Double(step)
+            }
 //        selfArray.frequencies(step: step)
 //            .reduce(Double.zero) { (old: Double, freqs: [Character: Int]) -> Double in
 //                old + indexOfCoincidence(freqs: freqs)
@@ -144,36 +102,43 @@ public final class Crypt {
                 i + 1
             }
     }
-    
-    // MARK: - Split String
-    
-    /**
-     retorna um conjunto de substrings pulando os caracteres de acordo com o step
-     ex. "banana".substring(step: 2) == ["bnn", "aaa"]
-     
-     - parameter step: indica quantas casas ira pular até pegar o próximo caracter
-     */
-    func substrings(step: Int, selfArray: [Character]) -> [[Character]] {
-        stride(from: .zero, to: step, by: 1)
-            .map { (i: Int) -> [Character] in
-                substring(start: i, step: step, selfArray: selfArray)
-        }
-    }
-    
-    /**
-     retorna uma substring pulando os caracteres de acordo com o step
-     ex. "banana".substring(start 1, step: 2) == "aaa"
-     
-     - parameter start: indica onde a substring irá começar
-     - parameter step: indica quantas casas ira pular até pegar o próximo caracter
-     */
-    func substring(start: Int = .zero, step: Int = 1, selfArray: [Character]) -> [Character] {
-        stride(from: start, to: selfArray.count, by: max(step, 1))
-            .map { (i: Int) -> Character in
-                selfArray[i]
-        }
-    }
+}
 
+// MARK: - Vigenere
+
+extension Crypt {
+    
+    // MARK: Decrypt
+    
+    /// faz a decriptacao usando a chave que foi passada
+    func decrypt(key: [Character]) -> String {
+        stride(from: 0, to: key.count, by: 1)
+            .reduce(into: newArray) { (array: inout [Character], keyIndex: Int) in
+                stride(from: keyIndex, to: selfArray.count, by: max(key.count, 1))
+                    .forEach { [m = Crypt.matrizVigenereInverted] (charIndex: Int) in
+                        array[charIndex] = m[key[keyIndex]]![selfArray[charIndex]]!
+                    }
+            }
+            .map { (array: [Character]) -> String in
+                array.string
+            }
+    }
+    
+    // MARK: Encrypt
+    
+    /// faz a encriptacao usando a chave que foi passada
+    func encrypt(key: [Character]) -> String {
+        stride(from: 0, to: key.count, by: 1)
+            .reduce(into: newArray) { (array: inout [Character], keyIndex: Int) in
+                stride(from: keyIndex, to: selfArray.count, by: max(key.count, 1))
+                    .forEach { [m = Crypt.matrizVigenere] (charIndex: Int) in
+                        array[charIndex] = m[key[keyIndex]]![selfArray[charIndex]]!
+                    }
+            }
+            .map { (array: [Character]) -> String in
+                array.string
+            }
+    }
 }
 
 // MARK: - Statics
