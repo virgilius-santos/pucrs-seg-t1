@@ -1,16 +1,7 @@
 
 import Foundation
 
-struct Decode {
-    var key: String
-    var word: String
-
-    func map() -> (w: [Character], [Character]) {
-        (Array(self.word), Array(self.key))
-    }
-}
-
-// MARK: Vigenere Encrypt
+// MARK: - Vigenere Encrypt
 
 extension String {
     /// faz a encriptacao usando a chave que foi passada
@@ -40,7 +31,7 @@ extension String {
     }
 }
 
-// MARK: Vigenere Decrypt
+// MARK: - Vigenere Decrypt
 
 extension String {
     /// faz a decriptacao usando a chave que foi passada
@@ -71,12 +62,12 @@ extension String {
     }
 }
 
-// MARK: Index of coincidence
+// MARK: - Index of coincidence
 
 /// quebra a string em substrings usando o step
 /// depois cacula o indice de coincidencia de cada substrings
-func indexOfCoincidence(step: Int, word: String) -> Double {
-    substrings(step: step, selfArray: word.array)
+func indexOfCoincidence(step: Int, selfArray: [Character]) -> Double {
+    substrings(step: step, selfArray: selfArray)
         .reduce(Double.zero) { (old: Double, word: String) -> Double in
             old + indexOfCoincidence(selfArray: word.array)
     }
@@ -101,21 +92,19 @@ func indexOfCoincidence(selfArray: [Character]) -> Double {
     return Double(sum) / Double(const)
 }
 
-extension String {
-    
-    
-
-    /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
-    func generateIndexOfCoincidence(qtd: Int) -> [Double] {
-        stride(from: 1, to: qtd + 1, by: 1)
-            .map { (i: Int) -> Double in
-                indexOfCoincidence(step: i, word: self)
-            }
+/// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
+func generateIndexOfCoincidence(qtd: Int, selfArray: [Character]) -> [Double] {
+    stride(from: 1, to: qtd + 1, by: 1)
+        .map { (i: Int) -> Double in
+            indexOfCoincidence(step: i, selfArray: selfArray)
     }
+}
+
+extension String {
 
     /// gera dez indiecs de coincidencia e retorna o primeiro indice do mais proximo ao valor default 0.0667
     func findFirstClosestndexOfCoincidence() -> Int {
-        (self.generateIndexOfCoincidence(qtd: 10)
+        (generateIndexOfCoincidence(qtd: 10, selfArray: array)
             .enumerated()
             .first(where: { (v: EnumeratedSequence<[Double]>.Element) -> Bool in
                 v.element.distance(to: 0.0667) < 0.001
