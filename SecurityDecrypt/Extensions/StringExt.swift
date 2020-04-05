@@ -68,8 +68,8 @@ extension String {
 /// depois cacula o indice de coincidencia de cada substrings
 func indexOfCoincidence(step: Int, selfArray: [Character]) -> Double {
     substrings(step: step, selfArray: selfArray)
-        .reduce(Double.zero) { (old: Double, word: String) -> Double in
-            old + indexOfCoincidence(selfArray: word.array)
+        .reduce(Double.zero) { (old: Double, word: [Character]) -> Double in
+            old + indexOfCoincidence(selfArray: word)
     }
     .map { (v: Double) -> Double in
         v / Double(step)
@@ -124,9 +124,9 @@ extension String {
  
  - parameter step: indica quantas casas ira pular até pegar o próximo caracter
  */
-func substrings(step: Int, selfArray: [Character]) -> [String] {
+func substrings(step: Int, selfArray: [Character]) -> [[Character]] {
     stride(from: .zero, to: step, by: 1)
-        .map { (i: Int) -> String in
+        .map { (i: Int) -> [Character] in
             substring(start: i, step: step, selfArray: selfArray)
     }
 }
@@ -138,12 +138,11 @@ func substrings(step: Int, selfArray: [Character]) -> [String] {
  - parameter start: indica onde a substring irá começar
  - parameter step: indica quantas casas ira pular até pegar o próximo caracter
  */
-func substring(start: Int = .zero, step: Int = 1, selfArray: [Character]) -> String {
+func substring(start: Int = .zero, step: Int = 1, selfArray: [Character]) -> [Character] {
     stride(from: start, to: selfArray.count, by: max(step, 1))
-        .compactMap { (i: Int) -> String? in
-            String(selfArray[i])
+        .map { (i: Int) -> Character in
+            selfArray[i]
     }
-    .reduce("", +)
 }
 
 extension String {

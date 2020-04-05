@@ -4,15 +4,15 @@ import Foundation
 public class Main {
     public static func decrypt(crypt: String) -> String {
         crypt
-            .map { (word: String) -> [String] in
+            .map { (word: String) -> [[Character]] in
                 word
                     .findFirstClosestndexOfCoincidence()
-                    .map { (index: Int) -> [String] in
+                    .map { (index: Int) -> [[Character]] in
                         substrings(step: index, selfArray: word.array)
                     }
             }
-            .map { (substring: String) -> [Character: Int] in
-                frequencies(selfArray: substring.array)
+            .map { (substrings: [Character]) -> [Character: Int] in
+                frequencies(selfArray: substrings)
             }
             .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
                 freq.letterMostFreq(qtd: 1)
