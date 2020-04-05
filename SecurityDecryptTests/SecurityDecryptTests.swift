@@ -3,16 +3,6 @@ import XCTest
 @testable import SecurityDecrypt
 
 class SecurityDecryptTests: XCTestCase {
-
-    var sut: Crypt!
-    
-    override func setUpWithError() throws {
-        sut = .init()
-    }
-
-    override func tearDownWithError() throws {
-        sut = nil
-    }
     
     func test_alphabet() throws {
         XCTAssertEqual(Crypt.alphabet.count, 26)
