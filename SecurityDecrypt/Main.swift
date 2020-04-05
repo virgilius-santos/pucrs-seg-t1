@@ -4,9 +4,12 @@ import Foundation
 public class Main {
     public static func decrypt(crypt: String) -> String {
         crypt
-            .map { (w: String) -> [String] in
-                let step: Int = w.findStepOfIndexOfCoincidence()
-                return w.substrings(step: step)
+            .map { (word: String) -> [String] in
+                word
+                    .findFirstClosestndexOfCoincidence()
+                    .map { (index: Int) -> [String] in
+                        word.substrings(step: index)
+                    }
             }
             .map { (substring: String) -> [String: Int] in
                 substring.frequencies()
@@ -18,7 +21,7 @@ public class Main {
                 Character(letter)
             }
             .compactMap { (c: Character) -> Character? in
-                Crypt.char(key: "e", fromAlphabet: c)
+                Crypt.matrizVigenereInverted["e"]?[c]
             }
             .map { (c: Character) -> String in
                 String(c)
