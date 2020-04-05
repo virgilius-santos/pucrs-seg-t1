@@ -24,7 +24,7 @@ class StringExt: XCTestCase {
     }
     
     func test_frequency() {
-        let frequency: [Character: Int] = "addfffgggg".crypt.frequencies().first!
+        let frequency: [Character: Int] = "addfffgggg".array.frequencies()
         XCTAssertEqual(frequency["a"], 1)
         XCTAssertEqual(frequency["d"], 2)
         XCTAssertEqual(frequency["f"], 3)

@@ -13,6 +13,12 @@ class PerfomanceTests: XCTestCase {
         }
     }
     
+    func testPerformanceTotalEngrypt() throws {
+        self.measure {
+            XCTAssertEqual(Main.encrypt(crypt: decrypt, key: "meunome"), textEncrypted)
+        }
+    }
+    
     func testPerformanceDecrypt() throws {
         self.measure {
             XCTAssertEqual(textEncrypted.crypt.decrypt(key: "meunome".array), decrypt)
@@ -21,7 +27,7 @@ class PerfomanceTests: XCTestCase {
     
     func testPerformanceKeySize() throws {
         self.measure {
-            XCTAssertEqual(textEncrypted.findFirstClosestndexOfCoincidence(), 7)
+            XCTAssertEqual(textEncrypted.crypt.findFirstClosestndexOfCoincidence(), 7)
         }
     }
 }
