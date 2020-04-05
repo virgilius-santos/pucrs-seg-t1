@@ -76,7 +76,7 @@ extension String {
 /// quebra a string em substrings usando o step
 /// depois cacula o indice de coincidencia de cada substrings
 func indexOfCoincidence(step: Int, word: String) -> Double {
-    word.substrings(step: step)
+    substrings(step: step, selfArray: word.array)
         .reduce(Double.zero) { (old: Double, word: String) -> Double in
             old + indexOfCoincidence(selfArray: word.array)
     }
@@ -103,6 +103,8 @@ func indexOfCoincidence(selfArray: [Character]) -> Double {
 
 extension String {
     
+    
+
     /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
     func generateIndexOfCoincidence(qtd: Int) -> [Double] {
         stride(from: 1, to: qtd + 1, by: 1)
@@ -125,55 +127,40 @@ extension String {
     }
 }
 
-// MARK: Split String
+// MARK: - Split String
+
+/**
+ retorna um conjunto de substrings pulando os caracteres de acordo com o step
+ ex. "banana".substring(step: 2) == ["bnn", "aaa"]
+ 
+ - parameter step: indica quantas casas ira pular até pegar o próximo caracter
+ */
+func substrings(step: Int, selfArray: [Character]) -> [String] {
+    stride(from: .zero, to: step, by: 1)
+        .map { (i: Int) -> String in
+            substring(start: i, step: step, selfArray: selfArray)
+    }
+}
+
+/**
+ retorna uma substring pulando os caracteres de acordo com o step
+ ex. "banana".substring(start 1, step: 2) == "aaa"
+ 
+ - parameter start: indica onde a substring irá começar
+ - parameter step: indica quantas casas ira pular até pegar o próximo caracter
+ */
+func substring(start: Int = .zero, step: Int = 1, selfArray: [Character]) -> String {
+    stride(from: start, to: selfArray.count, by: max(step, 1))
+        .compactMap { (i: Int) -> String? in
+            String(selfArray[i])
+    }
+    .reduce("", +)
+}
 
 extension String {
-    /// permite retornar uma substring com um range passado.
-    /// ex. "palavra"[2..<4] = "la"
-    subscript(_ range: CountableRange<Int>) -> String {
-        let start = index(startIndex, offsetBy: max(.zero, range.lowerBound))
-        let end = index(start, offsetBy: min(self.count - range.lowerBound,
-                                             range.upperBound - range.lowerBound))
-        return String(self[start ..< end])
-    }
-
-    /// retorna um caracter da string de acordo com o index
-    /// se o index for invalido retorna nil
-    subscript(safe index: Int) -> String? {
-        guard index >= .zero, index < count else { return nil }
-        return String(Array(self)[index])
-    }
     
     var array: [Character] {
         Array(self)
-    }
-
-    /**
-     retorna um conjunto de substrings pulando os caracteres de acordo com o step
-     ex. "banana".substring(step: 2) == ["bnn", "aaa"]
-
-     - parameter step: indica quantas casas ira pular até pegar o próximo caracter
-     */
-    func substrings(step: Int) -> [String] {
-        stride(from: .zero, to: step, by: 1)
-            .map { (i: Int) -> String in
-                substring(start: i, step: step)
-            }
-    }
-
-    /**
-     retorna uma substring pulando os caracteres de acordo com o step
-     ex. "banana".substring(start 1, step: 2) == "aaa"
-
-     - parameter start: indica onde a substring irá começar
-     - parameter step: indica quantas casas ira pular até pegar o próximo caracter
-     */
-    func substring(start: Int = .zero, step: Int = 1) -> String {
-        stride(from: start, to: count, by: step)
-            .compactMap { (i: Int) -> String? in
-                self[safe: i]
-            }
-            .reduce("", +)
     }
 }
 

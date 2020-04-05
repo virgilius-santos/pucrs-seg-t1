@@ -8,7 +8,7 @@ public class Main {
                 word
                     .findFirstClosestndexOfCoincidence()
                     .map { (index: Int) -> [String] in
-                        word.substrings(step: index)
+                        substrings(step: index, selfArray: word.array)
                     }
             }
             .map { (substring: String) -> [Character: Int] in

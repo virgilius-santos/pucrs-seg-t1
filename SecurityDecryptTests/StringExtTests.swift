@@ -24,21 +24,22 @@ class StringExt: XCTestCase {
     }
     
     func test_substring() {
-        XCTAssertEqual("123412341234".substring(), "123412341234")
-        XCTAssertEqual("123412341234".substring(step: 2), "131313")
-        XCTAssertEqual("123412341234".substring(step: 3), "1432")
+        XCTAssertEqual(substring(selfArray: "123412341234".array), "123412341234")
+        XCTAssertEqual(substring(step: 2, selfArray: "123412341234".array), "131313")
+        XCTAssertEqual(substring(step: 3, selfArray: "123412341234".array), "1432")
     }
     
     func test_substrings() {
-        XCTAssertEqual("1212".substrings(step: 2)[0], "11")
-        XCTAssertEqual("1212".substrings(step: 2)[1], "22")
-        XCTAssertEqual("12121".substrings(step: 2)[0], "111")
+        XCTAssertEqual(substrings(step: 2, selfArray: "1212".array)[0], "11")
+        XCTAssertEqual(substrings(step: 2, selfArray: "1212".array)[1], "22")
+        XCTAssertEqual(substrings(step: 2, selfArray: "12121".array)[0], "111")
         
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[0], "tece")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[1], "hnec")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[2], "itir")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[3], "sese")
-        XCTAssertEqual("thissentenceissecret".substrings(step: 5)[4], "snst")
+        let result = substrings(step: 5, selfArray: "thissentenceissecret".array)
+        XCTAssertEqual(result[0], "tece")
+        XCTAssertEqual(result[1], "hnec")
+        XCTAssertEqual(result[2], "itir")
+        XCTAssertEqual(result[3], "sese")
+        XCTAssertEqual(result[4], "snst")
     }
     
     func test_frequency() {
