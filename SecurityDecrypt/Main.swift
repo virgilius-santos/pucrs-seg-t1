@@ -20,11 +20,7 @@ public class Main {
             .compactMap { (letter: Character, _: Int) -> Character? in
                 Crypt.matrizVigenereInverted["e"]?[letter]
             }
-            .map { (c: Character) -> String in
-                String(c)
-            }
-            .reduce("", +)
-            .map { (k: String) -> String in
+            .map { (k: [Character]) -> String in
                 crypt.decrypt(key: k)
             }
     }

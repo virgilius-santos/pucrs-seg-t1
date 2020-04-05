@@ -35,10 +35,10 @@ extension String {
 
 extension String {
     /// faz a decriptacao usando a chave que foi passada
-    func decrypt(key: String) -> String {
+    func decrypt(key: [Character]) -> String {
         print("------", key, "------")
         let selfArray: [Character] = Array(self)
-        let keyArray: [Character] = Array(key)
+        let keyArray: [Character] = key
         return stride(from: 0, to: count, by: key.count)
             .flatMap { (i: Int) -> [Character] in
                 decrypt(key: keyArray,

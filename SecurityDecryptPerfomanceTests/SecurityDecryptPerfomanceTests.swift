@@ -15,7 +15,7 @@ class PerfomanceTests: XCTestCase {
     
     func testPerformanceDecrypt() throws {
         self.measure {
-            XCTAssertEqual(textEncrypted.decrypt(key: "meunome"), decrypt)
+            XCTAssertEqual(textEncrypted.decrypt(key: "meunome".array), decrypt)
         }
     }
     

@@ -5,9 +5,9 @@ import XCTest
 class StringExt: XCTestCase {
     
     func test_decrypt() {
-        XCTAssertEqual("thissentenceissecret", "tikvweovhrcfkvwedthx".decrypt(key: "abcde"))
-        XCTAssertEqual("this", "tikv".decrypt(key: "abcde"))
-        XCTAssertEqual(text, textEncrypted.decrypt(key: "abcde"))
+        XCTAssertEqual("thissentenceissecret", "tikvweovhrcfkvwedthx".decrypt(key: "abcde".array))
+        XCTAssertEqual("this", "tikv".decrypt(key: "abcde".array))
+        XCTAssertEqual(text, textEncrypted.decrypt(key: "abcde".array))
     }
     
     func test_encrypt() {
