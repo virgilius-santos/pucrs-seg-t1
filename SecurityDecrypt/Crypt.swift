@@ -13,7 +13,14 @@ public final class Crypt {
     }
     
     func decrypt() -> String {
-        findFirstClosestndexOfCoincidence()
+        findKey()
+            .map { (k: [Character]) -> String in
+                decrypt(key: k)
+            }
+    }
+    
+    func findKey() -> [Character] {
+        findFirstClosestIndexOfCoincidence()
             .map { (index: Int) -> [[Character]] in
                 selfArray.substrings(step: index)
             }
@@ -26,22 +33,27 @@ public final class Crypt {
             .compactMap { (letter: Character, _: Int) -> Character? in
                 Crypt.matrizVigenereInverted["e"]?[letter]
             }
-            .map { (k: [Character]) -> String in
-                decrypt(key: k)
+    }
+    
+    /// gera dez indiecs de coincidencia e retorna o primeiro indice do mais proximo ao valor default 0.0667
+    func findFirstClosestIndexOfCoincidence() -> Int {
+        (generateIndexOfCoincidence(qtd: 10)
+            .enumerated()
+            .first(where: { (v: EnumeratedSequence<[Double]>.Element) -> Bool in
+                v.element.distance(to: 0.0667) < 0.001
+            })?
+            .offset ?? 0)
+            .map { (i: Int) -> Int in
+                i + 1
             }
-//        findFirstClosestndexOfCoincidence()
-//            .map { (index: Int) -> [[Character: Int]] in
-//                frequencies(step: index)
-//            }
-//            .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
-//                freq.letterMostFreq(qtd: 1)
-//            }
-//            .compactMap { (letter: Character, _: Int) -> Character? in
-//                Crypt.matrizVigenereInverted["e"]?[letter]
-//            }
-//            .map { (k: [Character]) -> String in
-//                decrypt(key: k)
-//            }
+    }
+    
+    /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
+    func generateIndexOfCoincidence(qtd: Int) -> [Double] {
+        stride(from: 1, to: qtd + 1, by: 1)
+            .map { (i: Int) -> Double in
+                indexOfCoincidence(step: i)
+            }
     }
     
     // MARK: Index of coincidence
@@ -56,13 +68,6 @@ public final class Crypt {
             .map { (v: Double) -> Double in
                 v / Double(step)
             }
-//        selfArray.frequencies(step: step)
-//            .reduce(Double.zero) { (old: Double, freqs: [Character: Int]) -> Double in
-//                old + indexOfCoincidence(freqs: freqs)
-//            }
-//            .map { (v: Double) -> Double in
-//                v / Double(step)
-//            }
     }
     
     /// calcula o indice de coincidencia da String usando a frequencia dos caracteres
@@ -79,35 +84,11 @@ public final class Crypt {
             }
         return sum / const
     }
-    
-    // MARK: Counters
-    
-    /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
-    func generateIndexOfCoincidence(qtd: Int) -> [Double] {
-        stride(from: 1, to: qtd + 1, by: 1)
-            .map { (i: Int) -> Double in
-                indexOfCoincidence(step: i)
-            }
-    }
-    
-    /// gera dez indiecs de coincidencia e retorna o primeiro indice do mais proximo ao valor default 0.0667
-    func findFirstClosestndexOfCoincidence() -> Int {
-        (generateIndexOfCoincidence(qtd: 10)
-            .enumerated()
-            .first(where: { (v: EnumeratedSequence<[Double]>.Element) -> Bool in
-                v.element.distance(to: 0.0667) < 0.001
-            })?
-            .offset ?? 0)
-            .map { (i: Int) -> Int in
-                i + 1
-            }
-    }
 }
 
 // MARK: - Vigenere
 
 extension Crypt {
-    
     // MARK: Decrypt
     
     /// faz a decriptacao usando a chave que foi passada

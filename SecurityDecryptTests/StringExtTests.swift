@@ -56,8 +56,8 @@ class StringExt: XCTestCase {
     }
     
     func test_findStepOfIndexOfCoincidence() {
-        XCTAssertEqual(text1.crypt.findFirstClosestndexOfCoincidence(), 5)
-        XCTAssertEqual(text2.crypt.findFirstClosestndexOfCoincidence(), 5)
+        XCTAssertEqual(text1.crypt.findFirstClosestIndexOfCoincidence(), 5)
+        XCTAssertEqual(text2.crypt.findFirstClosestIndexOfCoincidence(), 5)
     }
     
     func test_indexOfCosincidence_fromSplittedWord() {

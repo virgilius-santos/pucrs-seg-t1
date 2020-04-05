@@ -27,7 +27,13 @@ class PerfomanceTests: XCTestCase {
     
     func testPerformanceKeySize() throws {
         self.measure {
-            XCTAssertEqual(textEncrypted.crypt.findFirstClosestndexOfCoincidence(), 7)
+            XCTAssertEqual(textEncrypted.crypt.findFirstClosestIndexOfCoincidence(), 7)
+        }
+    }
+    
+    func testPerformanceFindKey() throws {
+        self.measure {
+            XCTAssertEqual(textEncrypted.crypt.findKey(), "meunome".array)
         }
     }
 }
