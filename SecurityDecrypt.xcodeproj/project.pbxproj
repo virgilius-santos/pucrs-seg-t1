@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18155EFA243A8694000A0C5D /* String4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18155EF9243A8694000A0C5D /* String4.txt */; };
+		18155EFC243A86AD000A0C5D /* String5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18155EFB243A86AD000A0C5D /* String5.txt */; };
 		18316EDF24305B06000AF586 /* SecurityDecrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18316ED524305B06000AF586 /* SecurityDecrypt.framework */; };
 		18316EE424305B06000AF586 /* SecurityDecryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316EE324305B06000AF586 /* SecurityDecryptTests.swift */; };
 		18316EE624305B06000AF586 /* SecurityDecrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 18316ED824305B06000AF586 /* SecurityDecrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18155EF9243A8694000A0C5D /* String4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = String4.txt; sourceTree = "<group>"; };
+		18155EFB243A86AD000A0C5D /* String5.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = String5.txt; sourceTree = "<group>"; };
 		18316ED524305B06000AF586 /* SecurityDecrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SecurityDecrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18316ED824305B06000AF586 /* SecurityDecrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecurityDecrypt.h; sourceTree = "<group>"; };
 		18316ED924305B06000AF586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 				18316EF124305B94000AF586 /* String.txt */,
 				188B3DB4243A22F500E5E7C3 /* String2.txt */,
 				188B3DB6243A26C800E5E7C3 /* String3.txt */,
+				18155EF9243A8694000A0C5D /* String4.txt */,
+				18155EFB243A86AD000A0C5D /* String5.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -303,7 +309,9 @@
 			files = (
 				188B3DB5243A22F500E5E7C3 /* String2.txt in Resources */,
 				18316EF224305B94000AF586 /* String.txt in Resources */,
+				18155EFA243A8694000A0C5D /* String4.txt in Resources */,
 				188B3DB7243A26C800E5E7C3 /* String3.txt in Resources */,
+				18155EFC243A86AD000A0C5D /* String5.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
