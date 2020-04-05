@@ -21,17 +21,14 @@ public final class Crypt {
     
     func findKey() -> [Character] {
         findFirstClosestIndexOfCoincidence()
-            .map { (index: Int) -> [[Character]] in
-                selfArray.substrings(step: index)
-            }
-            .map { (substrings: [Character]) -> [Character: Int] in
-                substrings.frequencies()
+            .map { (index: Int) -> [[Character: Int]] in
+                selfArray.frequencies(step: index)
             }
             .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
                 freq.letterMostFreq(qtd: 1)
             }
             .compactMap { (letter: Character, _: Int) -> Character? in
-                Crypt.matrizVigenereInverted["e"]?[letter]
+                Crypt.matrizVigenereInverted["e"]![letter]
             }
     }
     
@@ -50,9 +47,9 @@ public final class Crypt {
     
     /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
     func generateIndexOfCoincidence(qtd: Int) -> [Double] {
-        stride(from: 1, to: qtd + 1, by: 1)
+        stride(from: 0, to: qtd, by: 1)
             .map { (i: Int) -> Double in
-                indexOfCoincidence(step: i)
+                indexOfCoincidence(step: i + 1)
             }
     }
     
@@ -61,9 +58,9 @@ public final class Crypt {
     /// quebra a string em substrings usando o step
     /// depois cacula o indice de coincidencia de cada substrings
     func indexOfCoincidence(step: Int = 1) -> Double {
-        selfArray.substrings(step: step)
-            .reduce(Double.zero) { (old: Double, word: [Character]) -> Double in
-                old + indexOfCoincidence(freqs: word.frequencies())
+        selfArray.frequencies(step: step)
+            .reduce(Double.zero) { (old: Double, freqs: [Character: Int]) -> Double in
+                old + indexOfCoincidence(freqs: freqs)
             }
             .map { (v: Double) -> Double in
                 v / Double(step)
@@ -129,12 +126,6 @@ extension Crypt {
     static let alphabet: [Character] = {
         Array("abcdefghijklmnopqrstuvwxyz")
     }()
-    
-    /// gera dicionário com as letras associadas a 0
-    static var alphabetDict: [Character: Int] {
-        Array("abcdefghijklmnopqrstuvwxyz")
-            .reduce(into: [Character: Int]()) { $0[$1] = 0 }
-    }
     
     /// matriz de vigenere
     static let matrizVigenere: [Character: [Character: Character]] = {

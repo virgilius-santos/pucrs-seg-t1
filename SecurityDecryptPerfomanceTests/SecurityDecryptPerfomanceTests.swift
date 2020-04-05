@@ -5,7 +5,9 @@ import XCTest
 class PerfomanceTests: XCTestCase {
     
     let textEncrypted: String = Read.read("String2")!.alphanumeric.lowercased()
+    let textEncrypted2: String = Read.read("String4")!.alphanumeric.lowercased()
     let decrypt: String = Read.read("String3")!.alphanumeric.lowercased()
+    let decrypt2: String = Read.read("String5")!.alphanumeric.lowercased()
     
     func testPerformanceTotal() throws {
         self.measure {
@@ -34,6 +36,13 @@ class PerfomanceTests: XCTestCase {
     func testPerformanceFindKey() throws {
         self.measure {
             XCTAssertEqual(textEncrypted.crypt.findKey(), "meunome".array)
+        }
+    }
+    
+    func testPerformanceLong() throws {
+        self.measure {
+            let result = Main.decrypt(crypt: textEncrypted2)
+            XCTAssertEqual(result, decrypt2)
         }
     }
 }

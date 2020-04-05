@@ -9,7 +9,7 @@ public class Read {
         return nil
     }
     
-    public static func write(_ file: String, format: String, content: String) -> Bool {
+    public static func write(_ file: String, format: String = "txt", content: String) -> Bool {
         if let path = bundle.path(forResource: file, ofType: format) {
             
             let url = URL(fileURLWithPath: path)

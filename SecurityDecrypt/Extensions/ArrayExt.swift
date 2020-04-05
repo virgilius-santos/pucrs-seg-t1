@@ -2,7 +2,6 @@
 import Foundation
 
 extension Array where Element == Character {
-    
     var string: String {
         String(self)
     }
@@ -46,5 +45,15 @@ extension Array where Element == Character {
     func substring(start: Int = .zero, step: Int = 1) -> [Character] {
         stride(from: start, to: count, by: Swift.max(step, 1))
             .map { (i: Int) -> Character in self[i] }
+    }
+    
+    func frequencies(step: Int) -> [[Character: Int]] {
+        stride(from: .zero, to: step, by: 1)
+            .map { (start: Int) -> [Character: Int] in
+                stride(from: start, to: count, by: Swift.max(step, 1))
+                    .reduce(into: [Character: Int]()) { dict, value in
+                        dict[self[value]] = (dict[self[value]] ?? 0) + 1
+                    }
+            }
     }
 }
