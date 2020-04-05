@@ -1,15 +1,15 @@
 
 import Foundation
 
-class Read {
-    static func read(_ file: String, format: String) -> String? {
+public class Read {
+    public static func read(_ file: String, format: String) -> String? {
         if let path = bundle.path(forResource: file, ofType: format) {
             return try? String(contentsOfFile: path, encoding: .utf8)
         }
         return nil
     }
     
-    static func write(_ file: String, format: String, content: String) -> Bool {
+    public static func write(_ file: String, format: String, content: String) -> Bool {
         if let path = bundle.path(forResource: file, ofType: format) {
             
             let url = URL(fileURLWithPath: path)
