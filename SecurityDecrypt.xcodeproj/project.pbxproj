@@ -23,7 +23,6 @@
 		18316F0A24315118000AF586 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F0924315118000AF586 /* ArrayExt.swift */; };
 		18316F0C24315CA3000AF586 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F0B24315CA3000AF586 /* Main.swift */; };
 		18316F23243177B8000AF586 /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F22243177B8000AF586 /* MainTests.swift */; };
-		18EFF8AB2439932B005838D9 /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EFF8AA2439932B005838D9 /* Performance.swift */; };
 		188B3DB5243A22F500E5E7C3 /* String2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188B3DB4243A22F500E5E7C3 /* String2.txt */; };
 		188B3DB7243A26C800E5E7C3 /* String3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188B3DB6243A26C800E5E7C3 /* String3.txt */; };
 		188B3DBF243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DBE243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.swift */; };
@@ -67,7 +66,6 @@
 		18316F0924315118000AF586 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		18316F0B24315CA3000AF586 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		18316F22243177B8000AF586 /* MainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTests.swift; sourceTree = "<group>"; };
-		18EFF8AA2439932B005838D9 /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
 		188B3DB4243A22F500E5E7C3 /* String2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = String2.txt; sourceTree = "<group>"; };
 		188B3DB6243A26C800E5E7C3 /* String3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = String3.txt; sourceTree = "<group>"; };
 		188B3DBC243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecurityDecryptPerfomanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,12 +138,10 @@
 			children = (
 				18316EE524305B06000AF586 /* Info.plist */,
 				18316F0724310E6D000AF586 /* DictionaryExtTests.swift */,
-				18316F22243177B8000AF586 /* MainTests.swift */,
 				18316EFA24305CCC000AF586 /* ReadTests.swift */,
 				18316EE324305B06000AF586 /* SecurityDecryptTests.swift */,
 				18316EFE243060C7000AF586 /* StringExtTests.swift */,
 				18316F22243177B8000AF586 /* MainTests.swift */,
-				18EFF8AA2439932B005838D9 /* Performance.swift */,
 			);
 			path = SecurityDecryptTests;
 			sourceTree = "<group>";
@@ -347,7 +343,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18EFF8AB2439932B005838D9 /* Performance.swift in Sources */,
 				18316EE424305B06000AF586 /* SecurityDecryptTests.swift in Sources */,
 				18316F0824310E6D000AF586 /* DictionaryExtTests.swift in Sources */,
 				18316F23243177B8000AF586 /* MainTests.swift in Sources */,

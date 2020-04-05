@@ -152,7 +152,7 @@ extension String {
     }
 }
 
-// MARK: Counters
+// MARK: - Counters
 
 /// conta a frequencia de cada caracter da string
 /// retorna um dicionario com os caracteres e suas quantidades
@@ -162,7 +162,7 @@ func frequencies(selfArray: [Character]) -> [Character: Int] {
     }
 }
 
-// MARK: Formatters
+// MARK: - Formatters
 
 public extension String {
     /// retorna apenas os caracteres alphanumericos
