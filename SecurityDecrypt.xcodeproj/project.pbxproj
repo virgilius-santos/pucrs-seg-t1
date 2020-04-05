@@ -23,13 +23,21 @@
 		18316F0A24315118000AF586 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F0924315118000AF586 /* ArrayExt.swift */; };
 		18316F0C24315CA3000AF586 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F0B24315CA3000AF586 /* Main.swift */; };
 		18316F23243177B8000AF586 /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18316F22243177B8000AF586 /* MainTests.swift */; };
-		188B3DB3243A229700E5E7C3 /* PerfTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DB2243A229700E5E7C3 /* PerfTests.swift */; };
 		188B3DB5243A22F500E5E7C3 /* String2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188B3DB4243A22F500E5E7C3 /* String2.txt */; };
 		188B3DB7243A26C800E5E7C3 /* String3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188B3DB6243A26C800E5E7C3 /* String3.txt */; };
+		188B3DBF243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DBE243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.swift */; };
+		188B3DC1243A30F200E5E7C3 /* SecurityDecrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18316ED524305B06000AF586 /* SecurityDecrypt.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		18316EE024305B06000AF586 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18316ECC24305B06000AF586 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18316ED424305B06000AF586;
+			remoteInfo = SecurityDecrypt;
+		};
+		188B3DC2243A30F200E5E7C3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 18316ECC24305B06000AF586 /* Project object */;
 			proxyType = 1;
@@ -58,9 +66,11 @@
 		18316F0924315118000AF586 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		18316F0B24315CA3000AF586 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		18316F22243177B8000AF586 /* MainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTests.swift; sourceTree = "<group>"; };
-		188B3DB2243A229700E5E7C3 /* PerfTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfTests.swift; sourceTree = "<group>"; };
 		188B3DB4243A22F500E5E7C3 /* String2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = String2.txt; sourceTree = "<group>"; };
 		188B3DB6243A26C800E5E7C3 /* String3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = String3.txt; sourceTree = "<group>"; };
+		188B3DBC243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecurityDecryptPerfomanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		188B3DBE243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityDecryptPerfomanceTests.swift; sourceTree = "<group>"; };
+		188B3DC0243A30F200E5E7C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +89,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		188B3DB9243A30F200E5E7C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				188B3DC1243A30F200E5E7C3 /* SecurityDecrypt.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -87,6 +105,7 @@
 			children = (
 				18316ED724305B06000AF586 /* SecurityDecrypt */,
 				18316EE224305B06000AF586 /* SecurityDecryptTests */,
+				188B3DBD243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests */,
 				18316ED624305B06000AF586 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,6 +115,7 @@
 			children = (
 				18316ED524305B06000AF586 /* SecurityDecrypt.framework */,
 				18316EDE24305B06000AF586 /* SecurityDecryptTests.xctest */,
+				188B3DBC243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,7 +139,6 @@
 				18316EE524305B06000AF586 /* Info.plist */,
 				18316F0724310E6D000AF586 /* DictionaryExtTests.swift */,
 				18316F22243177B8000AF586 /* MainTests.swift */,
-				188B3DB2243A229700E5E7C3 /* PerfTests.swift */,
 				18316EFA24305CCC000AF586 /* ReadTests.swift */,
 				18316EE324305B06000AF586 /* SecurityDecryptTests.swift */,
 				18316EFE243060C7000AF586 /* StringExtTests.swift */,
@@ -156,6 +175,15 @@
 				18316F052430EDA0000AF586 /* NumberExt.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		188B3DBD243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DBE243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.swift */,
+				188B3DC0243A30F200E5E7C3 /* Info.plist */,
+			);
+			path = SecurityDecryptPerfomanceTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +236,24 @@
 			productReference = 18316EDE24305B06000AF586 /* SecurityDecryptTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		188B3DBB243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 188B3DC4243A30F200E5E7C3 /* Build configuration list for PBXNativeTarget "SecurityDecryptPerfomanceTests" */;
+			buildPhases = (
+				188B3DB8243A30F200E5E7C3 /* Sources */,
+				188B3DB9243A30F200E5E7C3 /* Frameworks */,
+				188B3DBA243A30F200E5E7C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				188B3DC3243A30F200E5E7C3 /* PBXTargetDependency */,
+			);
+			name = SecurityDecryptPerfomanceTests;
+			productName = SecurityDecryptPerfomanceTests;
+			productReference = 188B3DBC243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -223,6 +269,9 @@
 						LastSwiftMigration = 1140;
 					};
 					18316EDD24305B06000AF586 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+					188B3DBB243A30F200E5E7C3 = {
 						CreatedOnToolsVersion = 11.4;
 					};
 				};
@@ -242,6 +291,7 @@
 			targets = (
 				18316ED424305B06000AF586 /* SecurityDecrypt */,
 				18316EDD24305B06000AF586 /* SecurityDecryptTests */,
+				188B3DBB243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,6 +308,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		18316EDC24305B06000AF586 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		188B3DBA243A30F200E5E7C3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -290,8 +347,15 @@
 				18316F0824310E6D000AF586 /* DictionaryExtTests.swift in Sources */,
 				18316F23243177B8000AF586 /* MainTests.swift in Sources */,
 				18316EFF243060C7000AF586 /* StringExtTests.swift in Sources */,
-				188B3DB3243A229700E5E7C3 /* PerfTests.swift in Sources */,
 				18316EFB24305CCC000AF586 /* ReadTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		188B3DB8243A30F200E5E7C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				188B3DBF243A30F200E5E7C3 /* SecurityDecryptPerfomanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +366,11 @@
 			isa = PBXTargetDependency;
 			target = 18316ED424305B06000AF586 /* SecurityDecrypt */;
 			targetProxy = 18316EE024305B06000AF586 /* PBXContainerItemProxy */;
+		};
+		188B3DC3243A30F200E5E7C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18316ED424305B06000AF586 /* SecurityDecrypt */;
+			targetProxy = 188B3DC2243A30F200E5E7C3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -514,6 +583,42 @@
 			};
 			name = Release;
 		};
+		188B3DC5243A30F200E5E7C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = KR99UBUHUT;
+				INFOPLIST_FILE = SecurityDecryptPerfomanceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.organization.security.SecurityDecryptPerfomanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		188B3DC6243A30F200E5E7C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = KR99UBUHUT;
+				INFOPLIST_FILE = SecurityDecryptPerfomanceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.organization.security.SecurityDecryptPerfomanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -540,6 +645,15 @@
 			buildConfigurations = (
 				18316EED24305B06000AF586 /* Debug */,
 				18316EEE24305B06000AF586 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		188B3DC4243A30F200E5E7C3 /* Build configuration list for PBXNativeTarget "SecurityDecryptPerfomanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				188B3DC5243A30F200E5E7C3 /* Debug */,
+				188B3DC6243A30F200E5E7C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
