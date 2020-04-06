@@ -24,11 +24,8 @@ public final class Crypt {
             .map { (index: Int) -> [[Character: Int]] in
                 selfArray.frequencies(step: index)
             }
-            .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
-                freq.letterMostFreq(qtd: 1)
-            }
-            .compactMap { (letter: Character, _: Int) -> Character? in
-                Crypt.matrizVigenereInverted["e"]![letter]
+            .map { (freq: [Character: Int]) -> Character in
+                Crypt.matrizVigenereInverted["e"]![freq.letterMostFreq()]!
             }
     }
     

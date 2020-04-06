@@ -33,16 +33,19 @@ class PerfomanceTests: XCTestCase {
     
     func testPerformanceKeySize() throws {
         let crypt = Crypt(textEncrypted)
-        self.measure {
-            XCTAssertEqual(crypt.findFirstClosestIndexOfCoincidence(), 7)
+        self.measureMetrics([XCTPerformanceMetric.wallClockTime], automaticallyStartMeasuring: false)  {
+            startMeasuring()
+            _ = crypt.findFirstClosestIndexOfCoincidence()
+            stopMeasuring()
         }
     }
     
     func testPerformanceFindKey() throws {
         let crypt = Crypt(textEncrypted)
-        let key = "meunome".array
-        self.measure {
-            XCTAssertEqual(crypt.findKey(), key)
+        self.measureMetrics([XCTPerformanceMetric.wallClockTime], automaticallyStartMeasuring: false)  {
+            startMeasuring()
+            _ = crypt.findKey()
+            stopMeasuring()
         }
     }
     
