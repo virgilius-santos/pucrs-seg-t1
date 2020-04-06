@@ -10,39 +10,46 @@ class PerfomanceTests: XCTestCase {
     let decrypt2: String = Read.read("String5")!.alphanumeric.lowercased()
     
     func testPerformanceTotal() throws {
+        let crypt = Crypt(textEncrypted)
         self.measure {
-            XCTAssertEqual(Main.decrypt(crypt: textEncrypted), decrypt)
+            XCTAssertEqual(crypt.decrypt(), decrypt)
         }
     }
     
     func testPerformanceTotalEngrypt() throws {
+        let crypt = Crypt(decrypt, key: "meunome")
         self.measure {
-            XCTAssertEqual(Main.encrypt(crypt: decrypt, key: "meunome"), textEncrypted)
+            XCTAssertEqual(crypt.encrypt(), textEncrypted)
         }
     }
     
     func testPerformanceDecrypt() throws {
+        let crypt = Crypt(textEncrypted)
+        let key = "meunome".array
         self.measure {
-            XCTAssertEqual(textEncrypted.crypt.decrypt(key: "meunome".array), decrypt)
+            XCTAssertEqual(crypt.decrypt(key: key), decrypt)
         }
     }
     
     func testPerformanceKeySize() throws {
+        let crypt = Crypt(textEncrypted)
         self.measure {
-            XCTAssertEqual(textEncrypted.crypt.findFirstClosestIndexOfCoincidence(), 7)
+            XCTAssertEqual(crypt.findFirstClosestIndexOfCoincidence(), 7)
         }
     }
     
     func testPerformanceFindKey() throws {
+        let crypt = Crypt(textEncrypted)
+        let key = "meunome".array
         self.measure {
-            XCTAssertEqual(textEncrypted.crypt.findKey(), "meunome".array)
+            XCTAssertEqual(crypt.findKey(), key)
         }
     }
     
     func testPerformanceLong() throws {
+        let crypt = Crypt(textEncrypted2)
         self.measure {
-            let result = Main.decrypt(crypt: textEncrypted2)
-            XCTAssertEqual(result, decrypt2)
+            XCTAssertEqual(crypt.decrypt(), decrypt2)
         }
     }
 }

@@ -6,8 +6,8 @@ class StringExt: XCTestCase {
     
     func test_decrypt() {
         XCTAssertEqual("thissentenceissecret", "tikvweovhrcfkvwedthx".crypt.decrypt(key: "abcde".array))
-//        XCTAssertEqual("this", "tikv".crypt.decrypt(key: "abcde".array))
-//        XCTAssertEqual(text, textEncrypted.crypt.decrypt(key: "abcde".array))
+        XCTAssertEqual("this", "tikv".crypt.decrypt(key: "abcde".array))
+        XCTAssertEqual(text, textEncrypted.crypt.decrypt(key: "abcde".array))
     }
     
     func test_encrypt() {
@@ -24,7 +24,7 @@ class StringExt: XCTestCase {
     }
     
     func test_frequency() {
-        let frequency: [Character: Int] = "addfffgggg".array.frequencies()
+        let frequency: [Character: Int] = "addfffgggg".array.frequencies().first!
         XCTAssertEqual(frequency["a"], 1)
         XCTAssertEqual(frequency["d"], 2)
         XCTAssertEqual(frequency["f"], 3)
