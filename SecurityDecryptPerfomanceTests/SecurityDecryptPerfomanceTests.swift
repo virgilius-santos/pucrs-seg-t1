@@ -17,9 +17,9 @@ class PerfomanceTests: XCTestCase {
     }
     
     func testPerformanceTotalEngrypt() throws {
-        let crypt = Crypt(decrypt, key: "meunome")
+        let crypt = Crypt(decrypt)
         self.measure {
-            XCTAssertEqual(crypt.encrypt(), textEncrypted)
+            XCTAssertEqual(crypt.encrypt(key: "meunome".array), textEncrypted)
         }
     }
     

@@ -21,4 +21,20 @@ class SecurityDecryptTests: XCTestCase {
             }
         }
     }
+    
+    func test_vigenereInverted() {
+        let matriz: [Character: [Character: Character]] = Crypt.matrizVigenereInverted
+        var string = ""
+        var aux = ""
+        for (_, dict) in matriz.sorted(by: { (v1, v2) -> Bool in v1.key < v2.key }) {
+            string += ""
+            aux = ""
+            for (_, v) in dict.sorted(by: { (v1, v2) -> Bool in v1.key < v2.key }) {
+                string += "\(aux)\(v)"
+                aux = "\t"
+            }
+            string += "\n"
+        }
+        print(string)
+    }
 }

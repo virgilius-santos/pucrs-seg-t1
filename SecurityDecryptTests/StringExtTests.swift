@@ -24,7 +24,7 @@ class StringExt: XCTestCase {
     }
     
     func test_frequency() {
-        let frequency: [Character: Int] = "addfffgggg".array.frequencies().first!
+        let frequency: [Character: Int] = "addfffgggg".array.frequencies()
         XCTAssertEqual(frequency["a"], 1)
         XCTAssertEqual(frequency["d"], 2)
         XCTAssertEqual(frequency["f"], 3)
@@ -56,8 +56,8 @@ class StringExt: XCTestCase {
     }
     
     func test_findStepOfIndexOfCoincidence() {
-        XCTAssertEqual(text1.crypt.findFirstClosestIndexOfCoincidence(), 5)
-        XCTAssertEqual(text2.crypt.findFirstClosestIndexOfCoincidence(), 5)
+        XCTAssertEqual(text1.crypt.findFirstClosestIndexOfCoincidence(), 4)
+        XCTAssertEqual(text2.crypt.findFirstClosestIndexOfCoincidence(), 4)
     }
     
     func test_indexOfCosincidence_fromSplittedWord() {
