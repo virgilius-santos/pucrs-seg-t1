@@ -7,6 +7,6 @@ public class Main {
     }
     
     public static func encrypt(crypt: String, key: String) -> String {
-        Crypt(crypt).encrypt(key: key.alphanumeric.lowercased().array)
+        Crypt(crypt).encrypt(key: key.array)
     }
 }

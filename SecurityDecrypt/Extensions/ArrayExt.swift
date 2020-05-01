@@ -57,3 +57,11 @@ extension Array where Element == Character {
             }
     }
 }
+
+extension Array {
+    
+    func `do`(completion: (Self) -> Void) -> Self {
+        completion(self)
+        return self
+    }
+}

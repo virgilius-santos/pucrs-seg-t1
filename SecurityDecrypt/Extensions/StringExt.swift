@@ -4,11 +4,12 @@ import Foundation
 // MARK: - Parsers
 
 extension String {
-    
+    /// transforma  uma string em um array de caracteres
     var array: [Character] {
         Array(self)
     }
-    
+
+    /// transforma  uma string em um Crypt
     var crypt: Crypt {
         .init(self)
     }

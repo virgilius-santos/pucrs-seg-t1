@@ -2,14 +2,31 @@
 import Foundation
 
 public final class Crypt {
+    enum Language: Double {
+        case portuguese = 0.072723
+        case english = 0.0667
+        
+        var character: Character {
+            switch self {
+            case .portuguese:
+                return "e"
+            case .english:
+                return "e"
+            }
+        }
+    }
+    
     let word: String
     let selfArray: [Character]
     var newArray: [Character]
+    let language: Language
+    var dicts: [[[Character: Int]]] = []
     
-    init(_ w: String) {
+    init(_ w: String, language lg: Language = .english) {
         word = w
         selfArray = Array(w.alphanumeric.lowercased())
         newArray = selfArray
+        language = lg
     }
     
     func decrypt() -> String {
@@ -22,13 +39,13 @@ public final class Crypt {
     func findKey() -> [Character] {
         findFirstClosestIndexOfCoincidence()
             .map { (index: Int) -> [[Character: Int]] in
-                selfArray.frequencies(step: index)
+                self.dicts[index]
             }
-            .flatMap { (freq: [Character: Int]) -> [(letter: Character, qtd: Int)] in
-                freq.letterMostFreq(qtd: 1)
+            .map { (freq: [Character: Int]) -> Character in
+                freq.letterMostFreq()
             }
-            .compactMap { (letter: Character, _: Int) -> Character? in
-                Crypt.matrizVigenereInverted["e"]![letter]
+            .map { [language] (letter: Character) -> Character in
+                Crypt.matrizVigenereInverted[language.character]![letter]!
             }
     }
     
@@ -36,20 +53,17 @@ public final class Crypt {
     func findFirstClosestIndexOfCoincidence() -> Int {
         (generateIndexOfCoincidence(qtd: 10)
             .enumerated()
-            .first(where: { (v: EnumeratedSequence<[Double]>.Element) -> Bool in
-                v.element.distance(to: 0.0667) < 0.001
+            .first(where: { [language] (v: EnumeratedSequence<[Double]>.Element) -> Bool in
+                v.element.distance(to: language.rawValue) < 0.01
             })?
             .offset ?? 0)
-            .map { (i: Int) -> Int in
-                i + 1
-            }
     }
     
     /// de acordo com a qtd informada gera uma serie de indices de coincidencia variando o step
     func generateIndexOfCoincidence(qtd: Int) -> [Double] {
         stride(from: 0, to: qtd, by: 1)
-            .map { (i: Int) -> Double in
-                indexOfCoincidence(step: i + 1)
+            .map { (step: Int) -> Double in
+                indexOfCoincidence(step: step + 1)
             }
     }
     
@@ -59,6 +73,9 @@ public final class Crypt {
     /// depois cacula o indice de coincidencia de cada substrings
     func indexOfCoincidence(step: Int = 1) -> Double {
         selfArray.frequencies(step: step)
+            .do { dicts in
+                self.dicts.append(dicts)
+            }
             .reduce(Double.zero) { (old: Double, freqs: [Character: Int]) -> Double in
                 old + indexOfCoincidence(freqs: freqs)
             }
